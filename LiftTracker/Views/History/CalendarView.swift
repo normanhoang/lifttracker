@@ -114,7 +114,6 @@ private struct DaySessionsSheet: View {
     let unit: WeightUnit
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @State private var pendingDelete: WorkoutSession?
 
     var body: some View {
         NavigationStack {
@@ -126,7 +125,12 @@ private struct DaySessionsSheet: View {
                         .listRowBackground(Color.clear)
                         .swipeActions(edge: .trailing) {
                             Button("Delete", systemImage: "trash", role: .destructive) {
-                                pendingDelete = s
+                                context.delete(s)
+                                do { try context.save() } catch {
+                                    print("DaySessionsSheet: failed to delete session: \(error)")
+                                }
+                                sessions.removeAll { $0 === s }
+                                if sessions.isEmpty { dismiss() }
                             }
                         }
                 }
@@ -139,25 +143,6 @@ private struct DaySessionsSheet: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
-            }
-            .confirmationDialog(
-                "Delete this workout?",
-                isPresented: Binding(get: { pendingDelete != nil },
-                                     set: { if !$0 { pendingDelete = nil } })
-            ) {
-                Button("Delete", role: .destructive) {
-                    if let session = pendingDelete {
-                        context.delete(session)
-                        do { try context.save() } catch {
-                            print("DaySessionsSheet: failed to delete session: \(error)")
-                        }
-                        sessions.removeAll { $0 === session }
-                        if sessions.isEmpty { dismiss() }
-                    }
-                    pendingDelete = nil
-                }
-            } message: {
-                Text("This permanently removes the workout and its lifts.")
             }
         }
         .presentationDetents([.medium, .large])

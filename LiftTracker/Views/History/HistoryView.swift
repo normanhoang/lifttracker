@@ -6,7 +6,6 @@ struct HistoryView: View {
     @Query(sort: \WorkoutSession.date, order: .reverse) private var sessions: [WorkoutSession]
     @AppStorage("unit") private var unitRaw = WeightUnit.lb.rawValue
     @State private var mode = 0   // 0 = List, 1 = Calendar
-    @State private var pendingDelete: WorkoutSession?
 
     private var unit: WeightUnit { WeightUnit(rawValue: unitRaw) ?? .lb }
 
@@ -31,23 +30,6 @@ struct HistoryView: View {
                 }
             }
             .navigationTitle("History")
-            .confirmationDialog(
-                "Delete this workout?",
-                isPresented: Binding(get: { pendingDelete != nil },
-                                     set: { if !$0 { pendingDelete = nil } })
-            ) {
-                Button("Delete", role: .destructive) {
-                    if let session = pendingDelete {
-                        context.delete(session)
-                        do { try context.save() } catch {
-                            print("HistoryView: failed to delete session: \(error)")
-                        }
-                    }
-                    pendingDelete = nil
-                }
-            } message: {
-                Text("This permanently removes the workout and its lifts.")
-            }
         }
         .tint(.red)
     }
@@ -68,7 +50,10 @@ struct HistoryView: View {
                     .listRowBackground(Color.clear)
                     .swipeActions(edge: .trailing) {
                         Button("Delete", systemImage: "trash", role: .destructive) {
-                            pendingDelete = session
+                            context.delete(session)
+                            do { try context.save() } catch {
+                                print("HistoryView: failed to delete session: \(error)")
+                            }
                         }
                     }
             }
