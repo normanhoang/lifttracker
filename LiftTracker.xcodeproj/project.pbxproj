@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01BE167B740C07451902D341 /* WorkoutDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */; };
+		1225A33BA3E3CF66DEE6ED5E /* ScreenshotUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0FE00AC7011C14E54F34F8 /* ScreenshotUITests.swift */; };
 		2D693BE619175D76B2C6D30F /* ProgressScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */; };
 		2E818DC4999FEE1B2AAF61D0 /* RestTimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833FAF10792AABEAB382769 /* RestTimerModel.swift */; };
 		37D54EFB08E27D6B7FAF6F58 /* RestTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */; };
@@ -52,6 +53,13 @@
 			remoteGlobalIDString = 44D04A7C7A16A8EC051DB4A8;
 			remoteInfo = LiftTracker;
 		};
+		E73E5A9F5830C47BD5394430 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CB038F8A08AD585BF31B744 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44D04A7C7A16A8EC051DB4A8;
+			remoteInfo = LiftTracker;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,7 +88,9 @@
 		3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRow.swift; sourceTree = "<group>"; };
 		3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedExerciseDisplay.swift; sourceTree = "<group>"; };
 		3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEditSheet.swift; sourceTree = "<group>"; };
+		4A0FE00AC7011C14E54F34F8 /* ScreenshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUITests.swift; sourceTree = "<group>"; };
 		4A28B40132698C744936D69B /* DisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTests.swift; sourceTree = "<group>"; };
+		51D2EB1E3E6A56D902A34F08 /* LiftTrackerUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LiftTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDraft.swift; sourceTree = "<group>"; };
 		5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		6833FAF10792AABEAB382769 /* RestTimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerModel.swift; sourceTree = "<group>"; };
@@ -133,6 +143,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		20781A0EB2F3D5D5E470AEB7 /* LiftTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4A0FE00AC7011C14E54F34F8 /* ScreenshotUITests.swift */,
+			);
+			path = LiftTrackerUITests;
+			sourceTree = "<group>";
+		};
 		3258D0A88374214F5CB5DF95 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +191,7 @@
 			children = (
 				28377135DA10D51553509900 /* LiftTracker.app */,
 				245A1558678FE3F4757B0B94 /* LiftTrackerTests.xctest */,
+				51D2EB1E3E6A56D902A34F08 /* LiftTrackerUITests.xctest */,
 				DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */,
 			);
 			name = Products;
@@ -199,6 +218,7 @@
 			children = (
 				C1F85F20347F1A667BABB1F6 /* LiftTracker */,
 				1B680032CAA1717E0163457F /* LiftTrackerTests */,
+				20781A0EB2F3D5D5E470AEB7 /* LiftTrackerUITests */,
 				34B74121EF622316311A08D7 /* RestTimerWidget */,
 				CD0EA11218EF6E5E820F2D17 /* Shared */,
 				4C308F67ADCF47A6931E4235 /* Products */,
@@ -292,6 +312,24 @@
 			productReference = DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		D193A4C9BD5D546DB9524017 /* LiftTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DF7234D77B9FD831D99BC31 /* Build configuration list for PBXNativeTarget "LiftTrackerUITests" */;
+			buildPhases = (
+				9906FF74D1DAE653CF56C5AA /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4931DD1C4082E7727643640C /* PBXTargetDependency */,
+			);
+			name = LiftTrackerUITests;
+			packageProductDependencies = (
+			);
+			productName = LiftTrackerUITests;
+			productReference = 51D2EB1E3E6A56D902A34F08 /* LiftTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -313,6 +351,11 @@
 						DevelopmentTeam = DZRPJF9JB6;
 						ProvisioningStyle = Automatic;
 					};
+					D193A4C9BD5D546DB9524017 = {
+						DevelopmentTeam = DZRPJF9JB6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 44D04A7C7A16A8EC051DB4A8;
+					};
 				};
 			};
 			buildConfigurationList = 80970885241D92DDCB9EED7F /* Build configuration list for PBXProject "LiftTracker" */;
@@ -331,6 +374,7 @@
 			targets = (
 				44D04A7C7A16A8EC051DB4A8 /* LiftTracker */,
 				56186806CE42FA545297A44F /* LiftTrackerTests */,
+				D193A4C9BD5D546DB9524017 /* LiftTrackerUITests */,
 				A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */,
 			);
 		};
@@ -374,6 +418,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9906FF74D1DAE653CF56C5AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1225A33BA3E3CF66DEE6ED5E /* ScreenshotUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A59FBEEA2A6B00B0969FB80E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +450,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4931DD1C4082E7727643640C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44D04A7C7A16A8EC051DB4A8 /* LiftTracker */;
+			targetProxy = E73E5A9F5830C47BD5394430 /* PBXContainerItemProxy */;
+		};
 		A541253C1D161F39080A0F3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */;
@@ -497,6 +554,23 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		493E7B2B1B95A441193F5241 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTrackerUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiftTracker;
 			};
 			name = Debug;
 		};
@@ -614,6 +688,23 @@
 			};
 			name = Debug;
 		};
+		76ABB4BEA425FA30D97161D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTrackerUITests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiftTracker;
+			};
+			name = Release;
+		};
 		7B2D24AB3FD660AA162863CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -651,6 +742,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7DF7234D77B9FD831D99BC31 /* Build configuration list for PBXNativeTarget "LiftTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				493E7B2B1B95A441193F5241 /* Debug */,
+				76ABB4BEA425FA30D97161D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		80970885241D92DDCB9EED7F /* Build configuration list for PBXProject "LiftTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

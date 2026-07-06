@@ -54,6 +54,18 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.norman.LiftTrackerTests
         GENERATE_INFOPLIST_FILE: YES
+  LiftTrackerUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: LiftTrackerUITests
+    dependencies:
+      - target: LiftTracker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.norman.LiftTrackerUITests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: LiftTracker
 schemes:
   LiftTracker:
     build:
@@ -62,3 +74,4 @@ schemes:
     test:
       targets:
         - LiftTrackerTests
+        - LiftTrackerUITests

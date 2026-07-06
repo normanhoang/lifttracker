@@ -50,6 +50,17 @@
                ReferencedContainer = "container:LiftTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D193A4C9BD5D546DB9524017"
+               BuildableName = "LiftTrackerUITests.xctest"
+               BlueprintName = "LiftTrackerUITests"
+               ReferencedContainer = "container:LiftTracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <CommandLineArguments>
       </CommandLineArguments>
