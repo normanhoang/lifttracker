@@ -40,6 +40,7 @@ struct ExerciseRow: View {
                 HStack(spacing: 12) {
                     ForEach(states.indices, id: \.self) { i in
                         RepCircle(state: states[i]) { onTapSet(i) }
+                            .accessibilityIdentifier("repCircle.\(slot.exercise.rawValue).\(i)")
                     }
                 }
             }

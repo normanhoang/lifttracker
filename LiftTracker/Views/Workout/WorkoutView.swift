@@ -37,6 +37,9 @@ struct WorkoutView: View {
                                     if draft.tap(slot.exercise, i) {
                                         if workoutStart == nil { workoutStart = Date() }
                                         timer.start(workoutTitle: draft.type.title)
+                                    } else if !draft.hasProgress {
+                                        workoutStart = nil
+                                        timer.stop()
                                     }
                                 },
                                 onEditWeight: { editingExercise = slot.exercise }
