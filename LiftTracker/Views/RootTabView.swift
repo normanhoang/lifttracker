@@ -19,8 +19,6 @@ struct RootTabView: View {
                 page(SettingsView(), 3)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .contentShape(Rectangle())
-            .simultaneousGesture(swipe)
 
             CustomTabBar(selection: $tab, items: items)
         }
@@ -35,18 +33,6 @@ struct RootTabView: View {
             .opacity(tab == index ? 1 : 0)
             .zIndex(tab == index ? 1 : 0)
             .allowsHitTesting(tab == index)
-    }
-
-    /// Horizontal swipe (on non-scrolling areas) moves between pages.
-    private var swipe: some Gesture {
-        DragGesture(minimumDistance: 30)
-            .onEnded { v in
-                guard abs(v.translation.width) > 60, abs(v.translation.height) < 80 else { return }
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    tab = v.translation.width < 0 ? min(items.count - 1, tab + 1)
-                                                  : max(0, tab - 1)
-                }
-            }
     }
 }
 
