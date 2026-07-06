@@ -1,0 +1,549 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01BE167B740C07451902D341 /* WorkoutDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */; };
+		2D693BE619175D76B2C6D30F /* ProgressScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */; };
+		2E818DC4999FEE1B2AAF61D0 /* RestTimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833FAF10792AABEAB382769 /* RestTimerModel.swift */; };
+		37D54EFB08E27D6B7FAF6F58 /* RestTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */; };
+		393B38EEAC00ADB9989F9054 /* RestTimerAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */; };
+		4AAD05C78117D427211253BE /* ExerciseDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */; };
+		5FBA01C33F4EB46D095CFF02 /* WorkoutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDFD171AF4126EA810F5AD9 /* WorkoutModels.swift */; };
+		63E4DCCE3AEBB582C7A745B1 /* RestTimerAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */; };
+		71C3081C674236F7A8449744 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA5EEBE77946E62A6CD4B9 /* HistoryView.swift */; };
+		79E59F519CCFC9DA114F3BA6 /* WorkoutCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EDC3A80F94B6C9EDCB586 /* WorkoutCompleteView.swift */; };
+		7FDE7AEA290E1434771817CC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073710085CBB54502E31460 /* SettingsView.swift */; };
+		AE65E4CBF5FFF17A6A2743DE /* RepCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD362BBD0B0435D9787A4B6D /* RepCircle.swift */; };
+		B8688C322171A56D36BCF1C9 /* Progression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98118B0E7E16DBA39068C3A3 /* Progression.swift */; };
+		BA0FEA8F6A123BB4E92BC1E6 /* RestTimerWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BF804E43C8143A92A4BA0D42 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */; };
+		C2FF7248BB79F5B416E57DD0 /* ExerciseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */; };
+		C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F51B228006B99F98F02F5 /* WorkoutView.swift */; };
+		D32E4BFDDB673B384B0A1745 /* LoggedExerciseDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */; };
+		DA2B5142099ECCCFFE3FC21F /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89421D6E753048EBE6967784 /* RootTabView.swift */; };
+		E8C97E3CD37E1162FD35E8BB /* NumberEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */; };
+		EFB416F217F1C2BDDC89355A /* WeightFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833D2FF018EAB8D02182D1DB /* WeightFormat.swift */; };
+		FAE746B368FF557C95319287 /* LiftTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE40C5D6A83640EFC113134 /* LiftTrackerApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		52963A869A290A177BA963E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CB038F8A08AD585BF31B744 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A88C4A4CF2F5B8C7D17AFDDC;
+			remoteInfo = RestTimerWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0698FE3583282C0B0FCB095D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BA0FEA8F6A123BB4E92BC1E6 /* RestTimerWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0073710085CBB54502E31460 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		01EA5EEBE77946E62A6CD4B9 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		28377135DA10D51553509900 /* LiftTracker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LiftTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FDFD171AF4126EA810F5AD9 /* WorkoutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModels.swift; sourceTree = "<group>"; };
+		34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerAttributes.swift; sourceTree = "<group>"; };
+		3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRow.swift; sourceTree = "<group>"; };
+		3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedExerciseDisplay.swift; sourceTree = "<group>"; };
+		3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEditSheet.swift; sourceTree = "<group>"; };
+		575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDraft.swift; sourceTree = "<group>"; };
+		5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		6833FAF10792AABEAB382769 /* RestTimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerModel.swift; sourceTree = "<group>"; };
+		828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDef.swift; sourceTree = "<group>"; };
+		833D2FF018EAB8D02182D1DB /* WeightFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormat.swift; sourceTree = "<group>"; };
+		89421D6E753048EBE6967784 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+		8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressScreen.swift; sourceTree = "<group>"; };
+		953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerLiveActivity.swift; sourceTree = "<group>"; };
+		98118B0E7E16DBA39068C3A3 /* Progression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progression.swift; sourceTree = "<group>"; };
+		9EE40C5D6A83640EFC113134 /* LiftTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftTrackerApp.swift; sourceTree = "<group>"; };
+		A44F51B228006B99F98F02F5 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		B825EC441E7129EB2ABE5F36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B91EDC3A80F94B6C9EDCB586 /* WorkoutCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompleteView.swift; sourceTree = "<group>"; };
+		DD362BBD0B0435D9787A4B6D /* RepCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepCircle.swift; sourceTree = "<group>"; };
+		DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = RestTimerWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08D50FAEC390AF036DB94E94 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */,
+				98118B0E7E16DBA39068C3A3 /* Progression.swift */,
+				833D2FF018EAB8D02182D1DB /* WeightFormat.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		1C389A3071E85545C5AE11FF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */,
+				2FDFD171AF4126EA810F5AD9 /* WorkoutModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3258D0A88374214F5CB5DF95 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */,
+				89421D6E753048EBE6967784 /* RootTabView.swift */,
+				C25E6590FE5EA603391BFDAE /* History */,
+				75DE8E08A270429D608B8708 /* Progress */,
+				666AFDA4CADBDD0916F5A77C /* Settings */,
+				45AC44DA5596FDC4BE5469A9 /* Workout */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		34B74121EF622316311A08D7 /* RestTimerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B825EC441E7129EB2ABE5F36 /* Info.plist */,
+				953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */,
+			);
+			path = RestTimerWidget;
+			sourceTree = "<group>";
+		};
+		45AC44DA5596FDC4BE5469A9 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */,
+				DD362BBD0B0435D9787A4B6D /* RepCircle.swift */,
+				6833FAF10792AABEAB382769 /* RestTimerModel.swift */,
+				B91EDC3A80F94B6C9EDCB586 /* WorkoutCompleteView.swift */,
+				575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */,
+				A44F51B228006B99F98F02F5 /* WorkoutView.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		4C308F67ADCF47A6931E4235 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28377135DA10D51553509900 /* LiftTracker.app */,
+				DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		666AFDA4CADBDD0916F5A77C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0073710085CBB54502E31460 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		75DE8E08A270429D608B8708 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		AF931F2F31B78F2B4EF434FA = {
+			isa = PBXGroup;
+			children = (
+				C1F85F20347F1A667BABB1F6 /* LiftTracker */,
+				34B74121EF622316311A08D7 /* RestTimerWidget */,
+				CD0EA11218EF6E5E820F2D17 /* Shared */,
+				4C308F67ADCF47A6931E4235 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C1F85F20347F1A667BABB1F6 /* LiftTracker */ = {
+			isa = PBXGroup;
+			children = (
+				9EE40C5D6A83640EFC113134 /* LiftTrackerApp.swift */,
+				08D50FAEC390AF036DB94E94 /* Logic */,
+				1C389A3071E85545C5AE11FF /* Models */,
+				3258D0A88374214F5CB5DF95 /* Views */,
+			);
+			path = LiftTracker;
+			sourceTree = "<group>";
+		};
+		C25E6590FE5EA603391BFDAE /* History */ = {
+			isa = PBXGroup;
+			children = (
+				5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */,
+				01EA5EEBE77946E62A6CD4B9 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		CD0EA11218EF6E5E820F2D17 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		44D04A7C7A16A8EC051DB4A8 /* LiftTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F9EA10A18FC6C242B897CF16 /* Build configuration list for PBXNativeTarget "LiftTracker" */;
+			buildPhases = (
+				2F0116124D162F6A766DD8A1 /* Sources */,
+				0698FE3583282C0B0FCB095D /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A541253C1D161F39080A0F3F /* PBXTargetDependency */,
+			);
+			name = LiftTracker;
+			packageProductDependencies = (
+			);
+			productName = LiftTracker;
+			productReference = 28377135DA10D51553509900 /* LiftTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96C4D9125AA66F39727A895F /* Build configuration list for PBXNativeTarget "RestTimerWidget" */;
+			buildPhases = (
+				A59FBEEA2A6B00B0969FB80E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RestTimerWidget;
+			packageProductDependencies = (
+			);
+			productName = RestTimerWidget;
+			productReference = DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5CB038F8A08AD585BF31B744 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 80970885241D92DDCB9EED7F /* Build configuration list for PBXProject "LiftTracker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = AF931F2F31B78F2B4EF434FA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4C308F67ADCF47A6931E4235 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				44D04A7C7A16A8EC051DB4A8 /* LiftTracker */,
+				A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2F0116124D162F6A766DD8A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF804E43C8143A92A4BA0D42 /* CalendarView.swift in Sources */,
+				4AAD05C78117D427211253BE /* ExerciseDef.swift in Sources */,
+				C2FF7248BB79F5B416E57DD0 /* ExerciseRow.swift in Sources */,
+				71C3081C674236F7A8449744 /* HistoryView.swift in Sources */,
+				FAE746B368FF557C95319287 /* LiftTrackerApp.swift in Sources */,
+				D32E4BFDDB673B384B0A1745 /* LoggedExerciseDisplay.swift in Sources */,
+				E8C97E3CD37E1162FD35E8BB /* NumberEditSheet.swift in Sources */,
+				2D693BE619175D76B2C6D30F /* ProgressScreen.swift in Sources */,
+				B8688C322171A56D36BCF1C9 /* Progression.swift in Sources */,
+				AE65E4CBF5FFF17A6A2743DE /* RepCircle.swift in Sources */,
+				393B38EEAC00ADB9989F9054 /* RestTimerAttributes.swift in Sources */,
+				2E818DC4999FEE1B2AAF61D0 /* RestTimerModel.swift in Sources */,
+				DA2B5142099ECCCFFE3FC21F /* RootTabView.swift in Sources */,
+				7FDE7AEA290E1434771817CC /* SettingsView.swift in Sources */,
+				EFB416F217F1C2BDDC89355A /* WeightFormat.swift in Sources */,
+				79E59F519CCFC9DA114F3BA6 /* WorkoutCompleteView.swift in Sources */,
+				01BE167B740C07451902D341 /* WorkoutDraft.swift in Sources */,
+				5FBA01C33F4EB46D095CFF02 /* WorkoutModels.swift in Sources */,
+				C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A59FBEEA2A6B00B0969FB80E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63E4DCCE3AEBB582C7A745B1 /* RestTimerAttributes.swift in Sources */,
+				37D54EFB08E27D6B7FAF6F58 /* RestTimerLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A541253C1D161F39080A0F3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */;
+			targetProxy = 52963A869A290A177BA963E1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		043A861DFD9976518B6748FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = LiftTracker;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTracker;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1EE9D8A7D0FCC69EEA7DC4BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		497DD2979557C65C03499788 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5F6A342227C8E175CAAF8B9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = LiftTracker;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTracker;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		6B5448E9DB1ACFB9A80A769B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RestTimerWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTracker.RestTimerWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		72D11081DFE61CDC73D389BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RestTimerWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTracker.RestTimerWidget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		80970885241D92DDCB9EED7F /* Build configuration list for PBXProject "LiftTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1EE9D8A7D0FCC69EEA7DC4BD /* Debug */,
+				497DD2979557C65C03499788 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		96C4D9125AA66F39727A895F /* Build configuration list for PBXNativeTarget "RestTimerWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72D11081DFE61CDC73D389BD /* Debug */,
+				6B5448E9DB1ACFB9A80A769B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F9EA10A18FC6C242B897CF16 /* Build configuration list for PBXNativeTarget "LiftTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				043A861DFD9976518B6748FC /* Debug */,
+				5F6A342227C8E175CAAF8B9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5CB038F8A08AD585BF31B744 /* Project object */;
+}

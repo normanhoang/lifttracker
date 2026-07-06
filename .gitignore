@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Xcode - user & build state
+xcuserdata/
+*.xcuserstate
+DerivedData/
+build/
+*.moved-aside
+
+# Xcode - misc
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods / Carthage (unused today, ignored preemptively)
+Pods/
+Carthage/Build/
+
+# graphify knowledge-graph output (regenerable analysis artifact)
+graphify-out/
