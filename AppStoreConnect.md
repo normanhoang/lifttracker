@@ -37,17 +37,17 @@ App stores all data on-device (AppStorage / local). No account, no network calls
 
 - Data collected: **None** → "Data Not Collected"
 - Tracking: No
-- Privacy Policy URL: `TODO` (required even with no data — host a simple page)
+- Privacy Policy URL: `normanhoang.github.io/lifttracker/privacy.html` (required even with no data — host a simple page)
 
 ## Description
 
 ```
-LiftTracker is a dead-simple StrongLifts 5×5 tracker. Log your sets with a tap,
+LiftTracker is a dead-simple Lifting 5×5 tracker. Log your sets with a tap,
 and the app handles the math: add weight when you succeed, deload after three
 straight fails.
 
 FEATURES
-• StrongLifts 5×5 auto-progression — weight goes up on success, deloads 10% after 3 failed sessions
+• Lifting 5×5 auto-progression — weight goes up on success, deloads 10% after 3 failed sessions
 • Tap-to-log rep circles, no fiddly keyboards
 • Live Activity rest timer on your Lock Screen and Dynamic Island
 • History calendar of every workout
@@ -60,7 +60,7 @@ No accounts. No ads. No cloud. Your data stays on your phone.
 ## Keywords
 
 ```
-stronglifts,5x5,barbell,gym,workout,lifting,strength,squat,bench,deadlift,progression,tracker
+lifting,5x5,barbell,gym,workout,lifting,strength,squat,bench,deadlift,progression,tracker
 ```
 (100-char limit, comma-separated, no spaces after commas)
 
@@ -72,7 +72,7 @@ Log 5×5 lifts with a tap. Auto-progression and a Lock Screen rest timer built i
 
 ## Support / Marketing URLs
 
-- Support URL: `TODO` (required)
+- Support URL: `normanhoang.github.io/lifttracker/support.html` (required)
 - Marketing URL: `TODO` (optional)
 
 ## What's New (release notes)

@@ -1,6 +1,6 @@
 import Foundation
 
-/// StrongLifts 5×5 auto-progression rules.
+/// Lifting 5×5 auto-progression rules.
 enum Progression {
     static func round5(_ x: Double) -> Double { (x / 5).rounded() * 5 }
 
