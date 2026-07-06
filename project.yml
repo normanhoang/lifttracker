@@ -28,6 +28,7 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         INFOPLIST_KEY_NSSupportsLiveActivities: YES
         INFOPLIST_KEY_CFBundleDisplayName: LiftTracker
+        ENABLE_TESTABILITY: YES
   RestTimerWidget:
     type: app-extension
     platform: iOS
@@ -40,3 +41,22 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         INFOPLIST_FILE: RestTimerWidget/Info.plist
         GENERATE_INFOPLIST_FILE: YES
+  LiftTrackerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: LiftTrackerTests
+    dependencies:
+      - target: LiftTracker
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.norman.LiftTrackerTests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  LiftTracker:
+    build:
+      targets:
+        LiftTracker: all
+    test:
+      targets:
+        - LiftTrackerTests

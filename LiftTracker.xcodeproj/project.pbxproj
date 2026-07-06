@@ -12,15 +12,21 @@
 		2E818DC4999FEE1B2AAF61D0 /* RestTimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6833FAF10792AABEAB382769 /* RestTimerModel.swift */; };
 		37D54EFB08E27D6B7FAF6F58 /* RestTimerLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */; };
 		393B38EEAC00ADB9989F9054 /* RestTimerAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */; };
+		3B5D51C978BFA4BDC777E7F0 /* ExerciseConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CFB20539C2EE82349085BB /* ExerciseConfigTests.swift */; };
+		458ED4BF81E1836758CACAB1 /* WorkoutDraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB749F7A658B8DCF2B9626D /* WorkoutDraftTests.swift */; };
 		4AAD05C78117D427211253BE /* ExerciseDef.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */; };
 		5FBA01C33F4EB46D095CFF02 /* WorkoutModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FDFD171AF4126EA810F5AD9 /* WorkoutModels.swift */; };
 		63E4DCCE3AEBB582C7A745B1 /* RestTimerAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */; };
 		71C3081C674236F7A8449744 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EA5EEBE77946E62A6CD4B9 /* HistoryView.swift */; };
 		79E59F519CCFC9DA114F3BA6 /* WorkoutCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91EDC3A80F94B6C9EDCB586 /* WorkoutCompleteView.swift */; };
 		7FDE7AEA290E1434771817CC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073710085CBB54502E31460 /* SettingsView.swift */; };
+		97C05FA504F0F1D4511F945F /* ProgressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C94B14B37839824C5EE886 /* ProgressionTests.swift */; };
+		9E145D98883639AF8738C056 /* DisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28B40132698C744936D69B /* DisplayTests.swift */; };
 		AE65E4CBF5FFF17A6A2743DE /* RepCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD362BBD0B0435D9787A4B6D /* RepCircle.swift */; };
 		B8688C322171A56D36BCF1C9 /* Progression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98118B0E7E16DBA39068C3A3 /* Progression.swift */; };
 		BA0FEA8F6A123BB4E92BC1E6 /* RestTimerWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BAA494794A796FBCE32BB603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D97485476977181444E0CC /* Assets.xcassets */; };
+		BD2D85DC37185403F69FE2B8 /* WeightFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82300664CEC6D744276D36DD /* WeightFormatTests.swift */; };
 		BF804E43C8143A92A4BA0D42 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */; };
 		C2FF7248BB79F5B416E57DD0 /* ExerciseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */; };
 		C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F51B228006B99F98F02F5 /* WorkoutView.swift */; };
@@ -38,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = A88C4A4CF2F5B8C7D17AFDDC;
 			remoteInfo = RestTimerWidget;
+		};
+		647D452AC237F96D2445EE4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5CB038F8A08AD585BF31B744 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44D04A7C7A16A8EC051DB4A8;
+			remoteInfo = LiftTracker;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,25 +71,32 @@
 /* Begin PBXFileReference section */
 		0073710085CBB54502E31460 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		01EA5EEBE77946E62A6CD4B9 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		03CFB20539C2EE82349085BB /* ExerciseConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseConfigTests.swift; sourceTree = "<group>"; };
+		0CB749F7A658B8DCF2B9626D /* WorkoutDraftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDraftTests.swift; sourceTree = "<group>"; };
+		245A1558678FE3F4757B0B94 /* LiftTrackerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LiftTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28377135DA10D51553509900 /* LiftTracker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = LiftTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FDFD171AF4126EA810F5AD9 /* WorkoutModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModels.swift; sourceTree = "<group>"; };
 		34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerAttributes.swift; sourceTree = "<group>"; };
 		3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRow.swift; sourceTree = "<group>"; };
 		3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedExerciseDisplay.swift; sourceTree = "<group>"; };
 		3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEditSheet.swift; sourceTree = "<group>"; };
+		4A28B40132698C744936D69B /* DisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTests.swift; sourceTree = "<group>"; };
 		575D8D76AEF2245312DD9000 /* WorkoutDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDraft.swift; sourceTree = "<group>"; };
 		5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		6833FAF10792AABEAB382769 /* RestTimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerModel.swift; sourceTree = "<group>"; };
+		82300664CEC6D744276D36DD /* WeightFormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatTests.swift; sourceTree = "<group>"; };
 		828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDef.swift; sourceTree = "<group>"; };
 		833D2FF018EAB8D02182D1DB /* WeightFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormat.swift; sourceTree = "<group>"; };
 		89421D6E753048EBE6967784 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
 		8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressScreen.swift; sourceTree = "<group>"; };
 		953373330955B778047CDFF2 /* RestTimerLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestTimerLiveActivity.swift; sourceTree = "<group>"; };
 		98118B0E7E16DBA39068C3A3 /* Progression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progression.swift; sourceTree = "<group>"; };
+		98C94B14B37839824C5EE886 /* ProgressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionTests.swift; sourceTree = "<group>"; };
 		9EE40C5D6A83640EFC113134 /* LiftTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftTrackerApp.swift; sourceTree = "<group>"; };
 		A44F51B228006B99F98F02F5 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B825EC441E7129EB2ABE5F36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B91EDC3A80F94B6C9EDCB586 /* WorkoutCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCompleteView.swift; sourceTree = "<group>"; };
+		D2D97485476977181444E0CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD362BBD0B0435D9787A4B6D /* RepCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepCircle.swift; sourceTree = "<group>"; };
 		DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = RestTimerWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -90,6 +110,18 @@
 				833D2FF018EAB8D02182D1DB /* WeightFormat.swift */,
 			);
 			path = Logic;
+			sourceTree = "<group>";
+		};
+		1B680032CAA1717E0163457F /* LiftTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				4A28B40132698C744936D69B /* DisplayTests.swift */,
+				03CFB20539C2EE82349085BB /* ExerciseConfigTests.swift */,
+				98C94B14B37839824C5EE886 /* ProgressionTests.swift */,
+				82300664CEC6D744276D36DD /* WeightFormatTests.swift */,
+				0CB749F7A658B8DCF2B9626D /* WorkoutDraftTests.swift */,
+			);
+			path = LiftTrackerTests;
 			sourceTree = "<group>";
 		};
 		1C389A3071E85545C5AE11FF /* Models */ = {
@@ -140,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				28377135DA10D51553509900 /* LiftTracker.app */,
+				245A1558678FE3F4757B0B94 /* LiftTrackerTests.xctest */,
 				DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */,
 			);
 			name = Products;
@@ -165,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				C1F85F20347F1A667BABB1F6 /* LiftTracker */,
+				1B680032CAA1717E0163457F /* LiftTrackerTests */,
 				34B74121EF622316311A08D7 /* RestTimerWidget */,
 				CD0EA11218EF6E5E820F2D17 /* Shared */,
 				4C308F67ADCF47A6931E4235 /* Products */,
@@ -174,6 +208,7 @@
 		C1F85F20347F1A667BABB1F6 /* LiftTracker */ = {
 			isa = PBXGroup;
 			children = (
+				D2D97485476977181444E0CC /* Assets.xcassets */,
 				9EE40C5D6A83640EFC113134 /* LiftTrackerApp.swift */,
 				08D50FAEC390AF036DB94E94 /* Logic */,
 				1C389A3071E85545C5AE11FF /* Models */,
@@ -207,6 +242,7 @@
 			buildConfigurationList = F9EA10A18FC6C242B897CF16 /* Build configuration list for PBXNativeTarget "LiftTracker" */;
 			buildPhases = (
 				2F0116124D162F6A766DD8A1 /* Sources */,
+				9471CE473DC28A33322DD1C8 /* Resources */,
 				0698FE3583282C0B0FCB095D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -220,6 +256,24 @@
 			productName = LiftTracker;
 			productReference = 28377135DA10D51553509900 /* LiftTracker.app */;
 			productType = "com.apple.product-type.application";
+		};
+		56186806CE42FA545297A44F /* LiftTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB3DDCDB4A0F6CBD8C748FFF /* Build configuration list for PBXNativeTarget "LiftTrackerTests" */;
+			buildPhases = (
+				F2A0BDFBB3B16FF00E21A661 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B82E0BCD037D518A29811551 /* PBXTargetDependency */,
+			);
+			name = LiftTrackerTests;
+			packageProductDependencies = (
+			);
+			productName = LiftTrackerTests;
+			productReference = 245A1558678FE3F4757B0B94 /* LiftTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */ = {
 			isa = PBXNativeTarget;
@@ -264,10 +318,22 @@
 			projectRoot = "";
 			targets = (
 				44D04A7C7A16A8EC051DB4A8 /* LiftTracker */,
+				56186806CE42FA545297A44F /* LiftTrackerTests */,
 				A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9471CE473DC28A33322DD1C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAA494794A796FBCE32BB603 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2F0116124D162F6A766DD8A1 /* Sources */ = {
@@ -305,6 +371,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F2A0BDFBB3B16FF00E21A661 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E145D98883639AF8738C056 /* DisplayTests.swift in Sources */,
+				3B5D51C978BFA4BDC777E7F0 /* ExerciseConfigTests.swift in Sources */,
+				97C05FA504F0F1D4511F945F /* ProgressionTests.swift in Sources */,
+				BD2D85DC37185403F69FE2B8 /* WeightFormatTests.swift in Sources */,
+				458ED4BF81E1836758CACAB1 /* WorkoutDraftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -312,6 +390,11 @@
 			isa = PBXTargetDependency;
 			target = A88C4A4CF2F5B8C7D17AFDDC /* RestTimerWidget */;
 			targetProxy = 52963A869A290A177BA963E1 /* PBXContainerItemProxy */;
+		};
+		B82E0BCD037D518A29811551 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44D04A7C7A16A8EC051DB4A8 /* LiftTracker */;
+			targetProxy = 647D452AC237F96D2445EE4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -321,6 +404,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = LiftTracker;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -469,6 +553,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = LiftTracker;
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -513,6 +598,40 @@
 			};
 			name = Debug;
 		};
+		7B2D24AB3FD660AA162863CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTrackerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiftTracker.app/LiftTracker";
+			};
+			name = Debug;
+		};
+		E700FD298543B8F20FF7997D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.norman.LiftTrackerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiftTracker.app/LiftTracker";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -539,6 +658,15 @@
 			buildConfigurations = (
 				043A861DFD9976518B6748FC /* Debug */,
 				5F6A342227C8E175CAAF8B9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FB3DDCDB4A0F6CBD8C748FFF /* Build configuration list for PBXNativeTarget "LiftTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B2D24AB3FD660AA162863CB /* Debug */,
+				E700FD298543B8F20FF7997D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
