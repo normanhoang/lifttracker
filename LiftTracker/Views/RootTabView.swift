@@ -20,7 +20,7 @@ struct RootTabView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
-            .gesture(swipe)
+            .simultaneousGesture(swipe)
 
             CustomTabBar(selection: $tab, items: items)
         }
