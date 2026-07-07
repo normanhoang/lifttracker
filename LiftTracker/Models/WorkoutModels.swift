@@ -7,6 +7,8 @@ final class ExerciseProgress {
     @Attribute(.unique) var exerciseID: String
     var currentWeight: Double
     var failStreak: Int
+    /// All-time heaviest non-skipped logged weight for this lift. 0 = never logged.
+    var bestWeight: Double = 0
 
     init(exerciseID: String, currentWeight: Double, failStreak: Int = 0) {
         self.exerciseID = exerciseID

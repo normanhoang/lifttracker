@@ -34,8 +34,8 @@ struct HistoryView: View {
         .tint(.red)
     }
 
-    /// Days that have at least one session; computed once per sessions change,
-    /// so CalendarView doesn't rescan on every month shift.
+    /// Days that have at least one session, passed to CalendarView so it doesn't rescan
+    /// on every month shift. Recomputed on each render (a single cheap map over sessions).
     private var workedDays: Set<DateComponents> {
         let cal = Calendar.current
         return Set(sessions.map { cal.dateComponents([.year, .month, .day], from: $0.date) })

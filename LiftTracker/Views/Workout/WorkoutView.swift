@@ -175,21 +175,27 @@ struct WorkoutView: View {
     }
 
     private func finish() {
-        // Persist edited working weights back to ExerciseProgress before logging.
-        for ex in Exercise.allCases {
-            let prog = progressRow(ex)
-            prog.currentWeight = draft.weight(ex)
-        }
-
         let session = draft.buildSession()
 
-        // Compute completion stats against prior sessions (before inserting this one).
+        // Compute completion stats against prior sessions (before inserting this one,
+        // and before updating bestWeight below).
         let number = ((try? context.fetchCount(FetchDescriptor<WorkoutSession>())) ?? 0) + 1
         let duration = Date().timeIntervalSince(workoutStart ?? session.date)
         let volume = session.exercises.reduce(0.0) { sum, ex in
             sum + ex.reps.reduce(0.0) { $0 + Double($1) * ex.weight }
         }
         let records = countRecords(in: session)
+
+        // Persist edited working weights back to ExerciseProgress before logging, and
+        // roll forward each lift's all-time best from this session.
+        for ex in Exercise.allCases {
+            let prog = progressRow(ex)
+            prog.currentWeight = draft.weight(ex)
+        }
+        for lift in session.exercises where !lift.isSkipped {
+            let prog = progressRow(Exercise(rawValue: lift.exerciseID)!)
+            prog.bestWeight = max(prog.bestWeight, lift.weight)
+        }
 
         context.insert(session)
         Progression.apply(session: session) { id in
@@ -212,15 +218,13 @@ struct WorkoutView: View {
     }
 
     /// Number of lifts whose logged weight beats that lift's previous best.
+    /// Compares against the denormalized `ExerciseProgress.bestWeight` (no table scan).
+    /// `bestWeight == 0` means never logged, so a first-ever lift is not a record.
     private func countRecords(in session: WorkoutSession) -> Int {
-        let logged = (try? context.fetch(FetchDescriptor<LoggedExercise>())) ?? []
-        var priorBest: [String: Double] = [:]
-        for ex in logged where !ex.isSkipped {
-            priorBest[ex.exerciseID] = max(priorBest[ex.exerciseID] ?? 0, ex.weight)
-        }
-        return session.exercises.filter { lift in
-            guard !lift.isSkipped, let best = priorBest[lift.exerciseID] else { return false }
-            return lift.weight > best
+        session.exercises.filter { lift in
+            guard !lift.isSkipped else { return false }
+            let best = progressRow(Exercise(rawValue: lift.exerciseID)!).bestWeight
+            return best > 0 && lift.weight > best
         }.count
     }
 

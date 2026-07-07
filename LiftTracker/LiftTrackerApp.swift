@@ -38,5 +38,26 @@ struct LiftTrackerApp: App {
                 print("seedIfNeeded: failed to save: \(error)")
             }
         }
+        backfillBestWeights(context)
+    }
+
+    /// One-time backfill of `ExerciseProgress.bestWeight` from history, for installs that
+    /// predate the field. Guarded so it scans the log table once, not on every launch.
+    @MainActor
+    private static func backfillBestWeights(_ context: ModelContext) {
+        guard !UserDefaults.standard.bool(forKey: "didBackfillBestWeight") else { return }
+        let logged = (try? context.fetch(FetchDescriptor<LoggedExercise>())) ?? []
+        var best: [String: Double] = [:]
+        for ex in logged where !ex.isSkipped {
+            best[ex.exerciseID] = max(best[ex.exerciseID] ?? 0, ex.weight)
+        }
+        let rows = (try? context.fetch(FetchDescriptor<ExerciseProgress>())) ?? []
+        for p in rows {
+            if let m = best[p.exerciseID] { p.bestWeight = max(p.bestWeight, m) }
+        }
+        do { try context.save() } catch {
+            print("backfillBestWeights: failed to save: \(error)")
+        }
+        UserDefaults.standard.set(true, forKey: "didBackfillBestWeight")
     }
 }
