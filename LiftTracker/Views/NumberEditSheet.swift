@@ -40,7 +40,7 @@ struct NumberEditSheet: View {
                         Image(systemName: "plus.circle.fill").font(.system(size: 44))
                     }
                 }
-                .tint(.red)
+                .tint(.brand)
                 Spacer()
             }
             .padding(.top, 48)

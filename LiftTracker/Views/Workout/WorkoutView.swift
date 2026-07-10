@@ -53,7 +53,7 @@ struct WorkoutView: View {
             }
             .safeAreaInset(edge: .bottom) { bottomBar }
         }
-        .tint(.red)
+        .tint(.brand)
         .onAppear(perform: setupIfNeeded)
         .onChange(of: progress.map(\.currentWeight)) { _, _ in
             // Pick up Starting-Weight edits from Settings (works even though the
@@ -103,8 +103,8 @@ struct WorkoutView: View {
             }
         } label: {
             HStack(spacing: 4) {
-                Text(draft.type.title).font(.headline).foregroundStyle(.red)
-                Image(systemName: "chevron.down").font(.caption).foregroundStyle(.red)
+                Text(draft.type.title).font(.headline).foregroundStyle(.brand)
+                Image(systemName: "chevron.down").font(.caption).foregroundStyle(.brand)
             }
         }
     }
@@ -137,7 +137,7 @@ struct WorkoutView: View {
                         .font(.headline.monospacedDigit())
                         .foregroundStyle(elapsed < 90 ? AnyShapeStyle(.secondary)
                                        : elapsed < 180 ? AnyShapeStyle(.primary)
-                                       : AnyShapeStyle(.red))
+                                       : AnyShapeStyle(.orange))
                 }
             } else {
                 Text("Rest")
@@ -147,7 +147,7 @@ struct WorkoutView: View {
             Spacer()
             Button("Finish") { finish() }
                 .font(.headline.bold())
-                .foregroundStyle(draft.hasProgress ? .red : .secondary)
+                .foregroundStyle(draft.hasProgress ? .brand : .secondary)
                 .disabled(!draft.hasProgress)
         }
         .padding(.horizontal)

@@ -31,7 +31,7 @@ struct HistoryView: View {
             }
             .navigationTitle("History")
         }
-        .tint(.red)
+        .tint(.brand)
     }
 
     /// Days that have at least one session, passed to CalendarView so it doesn't rescan

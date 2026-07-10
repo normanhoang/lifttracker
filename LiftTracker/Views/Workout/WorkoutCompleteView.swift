@@ -52,10 +52,10 @@ struct WorkoutCompleteView: View {
             Button { dismiss() } label: {
                 Text("Done")
                     .font(.title3.bold())
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(.red, in: Capsule())
+                    .background(Color.brand, in: Capsule())
             }
             .padding(.horizontal)
             .padding(.bottom, 24)

@@ -30,7 +30,7 @@ struct ExerciseRow: View {
                             .foregroundStyle(.primary)
                         Image(systemName: "chevron.right")
                             .font(.headline)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.brand)
                     }
                 }
                 .buttonStyle(.plain)

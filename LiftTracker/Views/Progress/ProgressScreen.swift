@@ -50,7 +50,7 @@ struct ProgressScreen: View {
             }
             .navigationTitle("Progress")
         }
-        .tint(.red)
+        .tint(.brand)
     }
 
     private func row(_ title: String, _ value: String) -> some View {
@@ -128,10 +128,10 @@ private struct TrendChart: View {
                 Chart {
                     ForEach(points) { p in
                         LineMark(x: .value("Date", p.date), y: .value("Weight", p.weight))
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.brand)
                             .interpolationMethod(.catmullRom)
                         PointMark(x: .value("Date", p.date), y: .value("Weight", p.weight))
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.brand)
                     }
                     if let sel = selectedPoint {
                         RuleMark(x: .value("Date", sel.date))

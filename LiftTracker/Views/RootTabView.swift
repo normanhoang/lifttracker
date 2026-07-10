@@ -22,7 +22,7 @@ struct RootTabView: View {
 
             CustomTabBar(selection: $tab, items: items)
         }
-        .tint(.red)
+        .tint(.brand)
         .preferredColorScheme(.dark)
         .ignoresSafeArea(.keyboard)
     }
@@ -51,7 +51,7 @@ private struct CustomTabBar: View {
                         Image(systemName: items[i].icon).font(.system(size: 20))
                         Text(items[i].title).font(.caption2)
                     }
-                    .foregroundStyle(selection == i ? Color.red : Color.secondary)
+                    .foregroundStyle(selection == i ? Color.brand : Color.secondary)
                     .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.plain)

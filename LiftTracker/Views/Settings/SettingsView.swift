@@ -42,7 +42,7 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
-        .tint(.red)
+        .tint(.brand)
         .sheet(item: $editingExercise) { ex in
             NumberEditSheet(
                 title: ex.name,

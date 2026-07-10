@@ -26,6 +26,7 @@
 		97C05FA504F0F1D4511F945F /* ProgressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C94B14B37839824C5EE886 /* ProgressionTests.swift */; };
 		9E145D98883639AF8738C056 /* DisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A28B40132698C744936D69B /* DisplayTests.swift */; };
 		AE65E4CBF5FFF17A6A2743DE /* RepCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD362BBD0B0435D9787A4B6D /* RepCircle.swift */; };
+		B2DBC293A50692F39CD556EF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1EF9041EBE48A73C940 /* Theme.swift */; };
 		B8688C322171A56D36BCF1C9 /* Progression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98118B0E7E16DBA39068C3A3 /* Progression.swift */; };
 		BA0FEA8F6A123BB4E92BC1E6 /* RestTimerWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BAA494794A796FBCE32BB603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D97485476977181444E0CC /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		BF804E43C8143A92A4BA0D42 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E35DE1E2EE46CBDF37A0B0A /* CalendarView.swift */; };
 		C2FF7248BB79F5B416E57DD0 /* ExerciseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */; };
 		C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F51B228006B99F98F02F5 /* WorkoutView.swift */; };
+		D0DC1692943ABB74ACAD9FA0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1EF9041EBE48A73C940 /* Theme.swift */; };
 		D32E4BFDDB673B384B0A1745 /* LoggedExerciseDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */; };
 		DA2B5142099ECCCFFE3FC21F /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89421D6E753048EBE6967784 /* RootTabView.swift */; };
 		E8C97E3CD37E1162FD35E8BB /* NumberEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */; };
@@ -91,6 +93,7 @@
 		3C26CB48AF1990C6A00BD179 /* ExerciseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRow.swift; sourceTree = "<group>"; };
 		3D8343CCFC6E3EBEDF1CECD3 /* LoggedExerciseDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedExerciseDisplay.swift; sourceTree = "<group>"; };
 		3DBE49C462B9FD3D1244C895 /* NumberEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberEditSheet.swift; sourceTree = "<group>"; };
+		434ED1EF9041EBE48A73C940 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		4A0FE00AC7011C14E54F34F8 /* ScreenshotUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotUITests.swift; sourceTree = "<group>"; };
 		4A28B40132698C744936D69B /* DisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTests.swift; sourceTree = "<group>"; };
 		51D2EB1E3E6A56D902A34F08 /* LiftTrackerUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = LiftTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				34EA713ACBABFA5381D6D591 /* RestTimerAttributes.swift */,
+				434ED1EF9041EBE48A73C940 /* Theme.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -416,6 +420,7 @@
 				2E818DC4999FEE1B2AAF61D0 /* RestTimerModel.swift in Sources */,
 				DA2B5142099ECCCFFE3FC21F /* RootTabView.swift in Sources */,
 				7FDE7AEA290E1434771817CC /* SettingsView.swift in Sources */,
+				D0DC1692943ABB74ACAD9FA0 /* Theme.swift in Sources */,
 				EFB416F217F1C2BDDC89355A /* WeightFormat.swift in Sources */,
 				79E59F519CCFC9DA114F3BA6 /* WorkoutCompleteView.swift in Sources */,
 				01BE167B740C07451902D341 /* WorkoutDraft.swift in Sources */,
@@ -440,6 +445,7 @@
 			files = (
 				63E4DCCE3AEBB582C7A745B1 /* RestTimerAttributes.swift in Sources */,
 				37D54EFB08E27D6B7FAF6F58 /* RestTimerLiveActivity.swift in Sources */,
+				B2DBC293A50692F39CD556EF /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,7 +535,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = DZRPJF9JB6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -617,7 +623,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DZRPJF9JB6;
 				ENABLE_NS_ASSERTIONS = NO;

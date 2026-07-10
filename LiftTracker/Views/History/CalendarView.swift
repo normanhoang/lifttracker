@@ -48,7 +48,7 @@ struct CalendarView: View {
             Spacer()
             Button { shift(1) } label: { Image(systemName: "chevron.right") }
         }
-        .tint(.red)
+        .tint(.brand)
     }
 
     private func dayCell(_ day: Date) -> some View {
@@ -65,12 +65,12 @@ struct CalendarView: View {
                     .background {
                         // Selected day: filled circle. Today: ring. Both can show together.
                         ZStack {
-                            if isSelected { Circle().fill(Color.red.opacity(0.35)) }
-                            if isToday { Circle().stroke(Color.red, lineWidth: 2) }
+                            if isSelected { Circle().fill(Color.brand.opacity(0.35)) }
+                            if isToday { Circle().stroke(Color.brand, lineWidth: 2) }
                         }
                     }
                 Circle()
-                    .fill(worked ? Color.red : .clear)
+                    .fill(worked ? Color.brand : .clear)
                     .frame(width: 6, height: 6)
             }
             .frame(maxWidth: .infinity, minHeight: 40)

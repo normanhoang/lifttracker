@@ -16,7 +16,7 @@ struct RestTimerLiveActivity: Widget {
             HStack(spacing: 12) {
                 Image(systemName: "figure.strengthtraining.traditional")
                     .font(.title2)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.brand)
                 VStack(alignment: .leading, spacing: 2) {
                     Text("Resting")
                         .font(.caption)
@@ -33,18 +33,18 @@ struct RestTimerLiveActivity: Widget {
             .padding()
             .opacity(context.isStale ? 0.4 : 1)
             .activityBackgroundTint(Color.black)
-            .activitySystemActionForegroundColor(.red)
+            .activitySystemActionForegroundColor(.brand)
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     Image(systemName: "figure.strengthtraining.traditional")
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.brand)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     Text(context.state.startDate, style: .timer)
                         .monospacedDigit()
                         .frame(maxWidth: 64)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(.brand)
                 }
                 DynamicIslandExpandedRegion(.center) {
                     Text("Resting")
@@ -53,15 +53,15 @@ struct RestTimerLiveActivity: Widget {
                 }
             } compactLeading: {
                 Image(systemName: "figure.strengthtraining.traditional")
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.brand)
             } compactTrailing: {
                 Text(context.state.startDate, style: .timer)
                     .monospacedDigit()
                     .frame(maxWidth: 44)
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.brand)
             } minimal: {
                 Image(systemName: "figure.strengthtraining.traditional")
-                    .foregroundStyle(.red)
+                    .foregroundStyle(.brand)
             }
         }
     }
