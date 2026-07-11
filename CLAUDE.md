@@ -49,6 +49,7 @@ xcodebuild -exportArchive -archivePath build/LiftTracker.xcarchive \
 - Progression logic: success = every set hit target reps; +increment on success, deload to 90% (round to 5) after 3 straight fails. Encoded in `Progression.apply`.
 - New pure logic → add a test in `LiftTrackerTests/`.
 - On first launch, `LiftTrackerApp.seedIfNeeded` creates an `ExerciseProgress` row per lift.
+- **App icon must have no alpha channel.** If `icon-1024.png` is RGBA (even fully opaque), the watchOS Smart Stack renders the Live Activity icon as a white box; iPhone looks fine, so it slips through testing. Has regressed twice. After regenerating the icon, verify with `sips -g hasAlpha` (must be `no`).
 
 ## Release notes
 
