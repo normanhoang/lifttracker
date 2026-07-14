@@ -17,14 +17,9 @@ struct RestTimerLiveActivity: Widget {
                 Image(systemName: "figure.strengthtraining.traditional")
                     .font(.title2)
                     .foregroundStyle(.brand)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Resting")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    Text(context.state.startDate, style: .timer)
-                        .font(.title.monospacedDigit().bold())
-                        .foregroundStyle(.primary)
-                }
+                Text(context.state.startDate, style: .timer)
+                    .font(.title.monospacedDigit().bold())
+                    .foregroundStyle(.primary)
                 Spacer()
                 Text(context.attributes.workoutTitle)
                     .font(.headline)
@@ -45,11 +40,6 @@ struct RestTimerLiveActivity: Widget {
                         .monospacedDigit()
                         .frame(maxWidth: 64)
                         .foregroundStyle(.brand)
-                }
-                DynamicIslandExpandedRegion(.center) {
-                    Text("Resting")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
                 }
             } compactLeading: {
                 Image(systemName: "figure.strengthtraining.traditional")

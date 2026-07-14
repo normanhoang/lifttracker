@@ -10,3 +10,17 @@ struct RestTimerAttributes: ActivityAttributes {
 
     var workoutTitle: String
 }
+
+/// Shared so the app, the widget extension, and unit tests all resolve the
+/// same rest-duration default. `UserDefaults.double(forKey:)` returns 0 for a
+/// missing key, which is not a valid duration, so callers must route through
+/// `resolve` rather than reading the default inline.
+enum RestDurationSetting {
+    static let key = "restDurationSeconds"
+    static let defaultValue: TimeInterval = 60
+
+    static func resolve(_ stored: Double?) -> TimeInterval {
+        guard let stored, stored > 0 else { return defaultValue }
+        return stored
+    }
+}

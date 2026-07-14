@@ -5,8 +5,11 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var context
     @Query private var progress: [ExerciseProgress]
     @AppStorage("unit") private var unitRaw = WeightUnit.lb.rawValue
+    @AppStorage(RestDurationSetting.key) private var restDurationSeconds = RestDurationSetting.defaultValue
 
     @State private var editingExercise: Exercise?
+
+    private static let restDurationOptions: [Double] = [30, 45, 60, 90, 120, 180]
 
     private var unit: WeightUnit { WeightUnit(rawValue: unitRaw) ?? .lb }
 
@@ -21,6 +24,11 @@ struct SettingsView: View {
                     Picker("Weight Unit", selection: $unitRaw) {
                         ForEach(WeightUnit.allCases) { u in
                             Text(u.rawValue).tag(u.rawValue)
+                        }
+                    }
+                    Picker("Rest Duration", selection: $restDurationSeconds) {
+                        ForEach(Self.restDurationOptions, id: \.self) { seconds in
+                            Text("\(Int(seconds))s").tag(seconds)
                         }
                     }
                 }

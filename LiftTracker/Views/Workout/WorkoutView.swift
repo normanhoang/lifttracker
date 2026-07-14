@@ -138,11 +138,8 @@ struct WorkoutView: View {
                         .foregroundStyle(elapsed < 90 ? AnyShapeStyle(.secondary)
                                        : elapsed < 180 ? AnyShapeStyle(.primary)
                                        : AnyShapeStyle(.orange))
+                        .accessibilityIdentifier("bottomBar.timer")
                 }
-            } else {
-                Text("Rest")
-                    .font(.headline.monospacedDigit())
-                    .foregroundStyle(.secondary)
             }
             Spacer()
             Button("Finish") { finish() }

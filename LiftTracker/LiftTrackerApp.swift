@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 @main
 struct LiftTrackerApp: App {
@@ -14,6 +15,8 @@ struct LiftTrackerApp: App {
             fatalError("Failed to create ModelContainer: \(error)")
         }
         Self.seedIfNeeded(container.mainContext)
+        UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 
     var body: some Scene {
