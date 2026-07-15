@@ -16,4 +16,8 @@ final class RestTimerSupportTests: XCTestCase {
     func testResolveUsesStoredValue() {
         XCTAssertEqual(RestDurationSetting.resolve(90), 90)
     }
+
+    func testResolveReturnsNilWhenOff() {
+        XCTAssertNil(RestDurationSetting.resolve(RestDurationSetting.offValue))
+    }
 }

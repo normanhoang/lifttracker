@@ -21,9 +21,12 @@ final class RestTimerModel: ObservableObject {
         let now = Date()
         startDate = now
         running = true
-        let restDuration = Self.currentRestDurationSeconds()
         startOrRestartActivity(now: now, title: workoutTitle)
-        scheduleHapticNotification(after: restDuration)
+        if let restDuration = Self.currentRestDurationSeconds() {
+            scheduleHapticNotification(after: restDuration)
+        } else {
+            cancelHapticNotification()
+        }
     }
 
     func stop() {
@@ -33,7 +36,7 @@ final class RestTimerModel: ObservableObject {
         cancelHapticNotification()
     }
 
-    private static func currentRestDurationSeconds() -> TimeInterval {
+    private static func currentRestDurationSeconds() -> TimeInterval? {
         RestDurationSetting.resolve(UserDefaults.standard.object(forKey: RestDurationSetting.key) as? Double)
     }
 

@@ -27,6 +27,7 @@ struct SettingsView: View {
                         }
                     }
                     Picker("Rest Duration", selection: $restDurationSeconds) {
+                        Text("Off").tag(RestDurationSetting.offValue)
                         ForEach(Self.restDurationOptions, id: \.self) { seconds in
                             Text("\(Int(seconds))s").tag(seconds)
                         }
