@@ -1,92 +1,55 @@
 import Foundation
 import Combine
-import ActivityKit
 import UserNotifications
 
-/// Counts UP from the moment a set is tapped, and mirrors the elapsed time to a
-/// Live Activity (Lock Screen + Dynamic Island). Restarted on each new set tap.
+/// Side effects of the rest countdown: the Lock Screen activity and the
+/// end-of-rest haptic. The countdown itself is state on `DraftSnapshot` and is
+/// rendered directly from it, so there is nothing to tick here.
 @MainActor
 final class RestTimerModel: ObservableObject {
-    @Published private(set) var startDate: Date?
-    @Published private(set) var running = false
-
-    private var activity: Activity<RestTimerAttributes>?
-
     private static let notificationID = "restTimerElapsed"
+    private var lastSyncedEnd: Date?
 
-    /// Restart the count-up (called on the first tap of a set).
-    /// The in-app label renders `Text(startDate, style: .timer)`, which
-    /// self-updates — no per-second ticking needed.
-    func start(workoutTitle: String) {
-        let now = Date()
-        startDate = now
-        running = true
-        startOrRestartActivity(now: now, title: workoutTitle)
-        if let restDuration = Self.currentRestDurationSeconds() {
-            scheduleHapticNotification(after: restDuration)
+    /// Mirror the draft's rest state out to the system. Cheap to call on every
+    /// mutation: it no-ops unless the end time actually moved.
+    func sync(_ snapshot: DraftSnapshot) {
+        guard snapshot.restEndDate != lastSyncedEnd else { return }
+        lastSyncedEnd = snapshot.restEndDate
+
+        if let end = snapshot.restEndDate, end > .now {
+            scheduleHaptic(at: end)
         } else {
-            cancelHapticNotification()
+            cancelHaptic()
         }
+        Task { await RestActivity.sync(snapshot) }
     }
 
+    /// End rest entirely — finishing or discarding the workout.
     func stop() {
-        running = false
-        startDate = nil
-        endActivity()
-        cancelHapticNotification()
-    }
-
-    private static func currentRestDurationSeconds() -> TimeInterval? {
-        RestDurationSetting.resolve(UserDefaults.standard.object(forKey: RestDurationSetting.key) as? Double)
-    }
-
-    // MARK: - Live Activity
-
-    private func startOrRestartActivity(now: Date, title: String) {
-        guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
-        let state = RestTimerAttributes.ContentState(startDate: now)
-        // Mark the activity stale after 30 min so an abandoned workout doesn't
-        // leave a live-looking timer on the Lock Screen.
-        let stale = now.addingTimeInterval(30 * 60)
-
-        if let activity {
-            Task { await activity.update(ActivityContent(state: state, staleDate: stale)) }
-            return
-        }
-        do {
-            activity = try Activity.request(
-                attributes: RestTimerAttributes(workoutTitle: title),
-                content: ActivityContent(state: state, staleDate: stale)
-            )
-        } catch {
-            activity = nil
-        }
-    }
-
-    private func endActivity() {
-        guard let activity else { return }
-        self.activity = nil
-        Task { await activity.end(nil, dismissalPolicy: .immediate) }
+        lastSyncedEnd = nil
+        cancelHaptic()
+        Task { await RestActivity.end() }
     }
 
     // MARK: - Haptic notification
 
-    /// Schedules a local notification at the rest threshold. Works whether the
-    /// app is foreground, backgrounded, or the phone is locked — unlike an
-    /// in-app haptic call, which only fires while the app process is alive.
-    private func scheduleHapticNotification(after seconds: TimeInterval) {
+    /// A local notification rather than an in-app haptic: it fires with the app
+    /// backgrounded or the phone locked, which is where the phone actually is
+    /// between sets.
+    private func scheduleHaptic(at date: Date) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [Self.notificationID])
         let content = UNMutableNotificationContent()
         content.title = "Rest complete"
         content.body = "Start your next set."
         content.sound = .default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(seconds, 1), repeats: false)
+        let seconds = max(date.timeIntervalSinceNow, 1)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
         let request = UNNotificationRequest(identifier: Self.notificationID, content: content, trigger: trigger)
         Task { try? await center.add(request) }
     }
 
-    private func cancelHapticNotification() {
+    private func cancelHaptic() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [Self.notificationID])
     }
 }
