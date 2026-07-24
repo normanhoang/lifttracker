@@ -1,27 +1,43 @@
 import XCTest
 
 final class WorkoutTimerResetTests: XCTestCase {
-    /// Selecting a rep circle starts the rest timer. Cycling that same circle
-    /// all the way back to notStarted (deselecting it) should stop the timer,
-    /// removing the ticking bottom-bar clock, as if the workout never started.
-    func testDeselectingAllCirclesResetsTimer() {
-        let app = XCUIApplication()
-        app.launch()
+    /// Logging a set starts the session clock. Undoing the only logged set puts
+    /// the screen back where it started — no ticking header, as if the workout
+    /// never began.
+    func testUndoingTheOnlyLoggedSetClearsTheSession() {
+        let app = XCUIApplication.launched()
 
-        let circle = app.buttons["repCircle.squat.0"]
-        XCTAssertTrue(circle.waitForExistence(timeout: 2))
+        let tile = app.buttons["repCircle.squat.0"]
+        XCTAssertTrue(tile.waitForExistence(timeout: 3))
 
-        circle.tap() // notStarted -> done(5): starts the timer
-        let bottomBarTimer = app.staticTexts["bottomBar.timer"]
-        XCTAssertTrue(bottomBarTimer.waitForExistence(timeout: 2))
+        tile.tap()
+        let sessionClock = app.staticTexts["bottomBar.timer"]
+        XCTAssertTrue(sessionClock.waitForExistence(timeout: 2))
 
-        // done(5) -> done(4) -> done(3) -> done(2) -> done(1) -> done(0) -> notStarted
-        for _ in 0..<6 {
-            circle.tap()
-        }
+        let undo = app.buttons["undoLastSet"]
+        XCTAssertTrue(undo.waitForExistence(timeout: 2), "Undo appears once a set is logged")
+        undo.tap()
 
-        let predicate = NSPredicate(format: "exists == false")
-        expectation(for: predicate, evaluatedWith: bottomBarTimer)
-        waitForExpectations(timeout: 2)
+        XCTAssertFalse(app.buttons["undoLastSet"].exists, "nothing left to undo")
+        XCTAssertEqual(app.buttons["finishWorkout"].label, "Log a set to finish")
+    }
+
+    /// Tapping the same tile repeatedly must not walk the rep count down — that
+    /// cycle is what the redesign replaced.
+    func testTappingALoggedTileOpensThePickerInsteadOfCycling() {
+        let app = XCUIApplication.launched()
+
+        let tile = app.buttons["repCircle.squat.0"]
+        XCTAssertTrue(tile.waitForExistence(timeout: 3))
+        tile.tap()
+        XCTAssertEqual(tile.label, "5 reps")
+
+        tile.tap()
+        XCTAssertTrue(app.buttons["repPicker.3"].waitForExistence(timeout: 2),
+                      "a second tap is a correction, not a decrement")
+        app.buttons["repPicker.3"].tap()
+
+        XCTAssertTrue(app.buttons["repCircle.squat.0"].waitForExistence(timeout: 2))
+        XCTAssertEqual(app.buttons["repCircle.squat.0"].label, "3 reps")
     }
 }

@@ -1,36 +1,20 @@
 import XCTest
 @testable import LiftTracker
 
-final class SetStateTests: XCTestCase {
-
-    func testTapCycle() {
-        var s = SetState.notStarted
-        s.tap(); XCTAssertEqual(s, .done(5))
-        s.tap(); XCTAssertEqual(s, .done(4))
-        s.tap(); XCTAssertEqual(s, .done(3))
-        s.tap(); XCTAssertEqual(s, .done(2))
-        s.tap(); XCTAssertEqual(s, .done(1))
-        s.tap(); XCTAssertEqual(s, .done(0))
-        s.tap(); XCTAssertEqual(s, .notStarted, "done(0) wraps back to notStarted")
-    }
-
-    func testDisplayAndHighlighted() {
-        XCTAssertEqual(SetState.notStarted.display, 5)
-        XCTAssertFalse(SetState.notStarted.highlighted)
-        XCTAssertEqual(SetState.done(3).display, 3)
-        XCTAssertTrue(SetState.done(3).highlighted)
-        XCTAssertTrue(SetState.done(0).highlighted)
-    }
-}
-
 @MainActor
 final class WorkoutDraftTests: XCTestCase {
 
     private func draft(_ type: WorkoutType = .a,
-                       weights: [String: Double] = [:]) -> WorkoutDraft {
+                       weights: [String: Double] = [:],
+                       rest: [String: Int] = [:]) -> WorkoutDraft {
         let d = WorkoutDraft()
-        d.reset(type: type, weights: weights, bodyWeight: nil)
+        d.reset(type: type, weights: weights, rest: rest, bodyWeight: nil)
         return d
+    }
+
+    override func tearDown() {
+        DraftStore.clear()
+        super.tearDown()
     }
 
     func testResetBuildsGridPerSlot() {
@@ -38,32 +22,57 @@ final class WorkoutDraftTests: XCTestCase {
         XCTAssertEqual(d.states(.squat).count, 5)
         XCTAssertEqual(d.states(.bench).count, 5)
         XCTAssertEqual(d.states(.row).count, 5)
-        XCTAssertTrue(d.states(.squat).allSatisfy { $0 == .notStarted })
+        XCTAssertTrue(d.states(.squat).allSatisfy { $0 == nil })
         XCTAssertTrue(d.states(.ohp).isEmpty, "OHP is not in workout A")
+    }
+
+    func testResetSeedsPerLiftRestDefaults() {
+        let d = draft(.b)
+        XCTAssertEqual(d.lifts.first { $0.exerciseID == "squat" }?.restSeconds, 180)
+        XCTAssertEqual(d.lifts.first { $0.exerciseID == "ohp" }?.restSeconds, 90)
     }
 
     func testTapReturnsTrueOnlyWhenStartingASet() {
         let d = draft(.a)
-        XCTAssertTrue(d.tap(.squat, 0), "first tap starts the set → kicks rest timer")
-        XCTAssertFalse(d.tap(.squat, 0), "subsequent taps on a started set do not")
+        XCTAssertTrue(d.tapSet(.squat, 0), "first tap starts the set → kicks rest timer")
+        XCTAssertFalse(d.tapSet(.squat, 0), "logging the same set again is a correction")
+    }
+
+    func testTapLogsTargetRepsNotACycle() {
+        let d = draft(.a)
+        d.tapSet(.squat, 0)
+        d.tapSet(.squat, 0)
+        d.tapSet(.squat, 0)
+        XCTAssertEqual(d.states(.squat)[0], 5, "tapping never counts down")
     }
 
     func testTapOutOfRangeIsSafe() {
         let d = draft(.a)
-        XCTAssertFalse(d.tap(.squat, 99))
-        XCTAssertFalse(d.tap(.ohp, 0), "OHP absent from workout A")
+        XCTAssertFalse(d.tapSet(.squat, 99))
+        XCTAssertFalse(d.tapSet(.ohp, 0), "OHP absent from workout A")
     }
 
-    func testHasProgress() {
+    func testHasProgressAndLoggedSetCount() {
         let d = draft(.a)
         XCTAssertFalse(d.hasProgress)
-        _ = d.tap(.bench, 2)
+        XCTAssertEqual(d.loggedSetCount, 0)
+        d.tapSet(.bench, 2)
         XCTAssertTrue(d.hasProgress)
+        XCTAssertEqual(d.loggedSetCount, 1)
+    }
+
+    func testUndoLastSet() {
+        let d = draft(.a)
+        d.tapSet(.squat, 0)
+        d.tapSet(.squat, 1)
+        d.undoLastSet()
+        XCTAssertEqual(d.loggedSetCount, 1)
+        XCTAssertNil(d.states(.squat)[1])
     }
 
     func testChangeTypeResetsGridKeepsWeights() {
         let d = draft(.a, weights: [Exercise.squat.rawValue: 200])
-        _ = d.tap(.squat, 0)
+        d.tapSet(.squat, 0)
         d.changeType(.b)
         XCTAssertEqual(d.states(.deadlift).count, 1)
         XCTAssertFalse(d.hasProgress, "grid reset on type change")
@@ -72,31 +81,51 @@ final class WorkoutDraftTests: XCTestCase {
 
     func testBuildSessionFullSuccess() {
         let d = draft(.a, weights: [Exercise.squat.rawValue: 100])
-        for i in 0..<5 { _ = d.tap(.squat, i) }   // each → done(5)
-        let session = d.buildSession()
+        for i in 0..<5 { d.tapSet(.squat, i) }
+        let session = d.buildSession(duration: 60)
         let squat = session.exercises.first { $0.exerciseID == Exercise.squat.rawValue }!
         XCTAssertEqual(squat.reps, [5, 5, 5, 5, 5])
         XCTAssertEqual(squat.weight, 100)
         XCTAssertTrue(squat.isSuccess)
+        XCTAssertEqual(session.durationSeconds, 60)
+        XCTAssertEqual(session.volumeLb, 2500, "25 reps × 100lb")
     }
 
     func testBuildSessionPartial() {
         let d = draft(.a)
-        _ = d.tap(.bench, 0)                 // done(5)
-        _ = d.tap(.bench, 1); _ = d.tap(.bench, 1)   // two taps → done(4)
-        let session = d.buildSession()
+        d.tapSet(.bench, 0)
+        d.log(.bench, 1, reps: 4)
+        let session = d.buildSession(duration: 0)
         let bench = session.exercises.first { $0.exerciseID == Exercise.bench.rawValue }!
         XCTAssertEqual(bench.reps, [5, 4, 0, 0, 0])
         XCTAssertFalse(bench.isSuccess)
         XCTAssertFalse(bench.isSkipped)
     }
 
-    func testBuildSessionSkippedExerciseHasEmptyReps() {
+    func testBuildSessionSkippedLiftHasEmptyReps() {
         let d = draft(.a)
-        _ = d.tap(.squat, 0)                 // only squat touched
-        let session = d.buildSession()
+        d.skip(.row)
+        let session = d.buildSession(duration: 0)
         let row = session.exercises.first { $0.exerciseID == Exercise.row.rawValue }!
         XCTAssertTrue(row.reps.isEmpty)
         XCTAssertTrue(row.isSkipped)
+    }
+
+    /// An untouched lift is *not* a skip — the finish gate requires every lift
+    /// to be complete, so this can only be reached by building a session by hand.
+    func testUntouchedLiftBuildsAsZeros() {
+        let d = draft(.a)
+        d.tapSet(.squat, 0)
+        let session = d.buildSession(duration: 0)
+        let row = session.exercises.first { $0.exerciseID == Exercise.row.rawValue }!
+        XCTAssertEqual(row.reps, [0, 0, 0, 0, 0])
+        XCTAssertFalse(row.isSkipped)
+    }
+
+    func testEveryMutationPersists() {
+        let d = draft(.a)
+        d.tapSet(.squat, 0)
+        XCTAssertEqual(DraftStore.load()?.loggedSetCount, 1,
+                       "a 45-minute session must survive the process dying")
     }
 }
