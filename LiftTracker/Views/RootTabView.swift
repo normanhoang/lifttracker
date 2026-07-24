@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RootTabView: View {
+    @AppStorage("hasCompletedFirstRun") private var hasCompletedFirstRun = false
     @State private var tab = 0
 
     private let items: [(title: String, icon: String)] = [
@@ -14,7 +15,7 @@ struct RootTabView: View {
         VStack(spacing: 0) {
             ZStack {
                 page(WorkoutView(), 0)
-                page(HistoryView(), 1)
+                page(HistoryView(onStartWorkout: { tab = 0 }), 1)
                 page(ProgressScreen(), 2)
                 page(SettingsView(), 3)
             }
@@ -25,6 +26,16 @@ struct RootTabView: View {
         .tint(.brand)
         .preferredColorScheme(.dark)
         .ignoresSafeArea(.keyboard)
+        .fullScreenCover(isPresented: Binding(get: { !hasCompletedFirstRun },
+                                              set: { hasCompletedFirstRun = !$0 })) {
+            FirstRunView(
+                onSeedDefaults: { hasCompletedFirstRun = true },
+                onSetWeights: {
+                    hasCompletedFirstRun = true
+                    tab = 3          // straight to Working Weights
+                }
+            )
+        }
     }
 
     /// All pages stay mounted; only the current one is visible and interactive.
