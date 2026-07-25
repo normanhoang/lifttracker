@@ -108,6 +108,9 @@ struct WorkoutView: View {
                     Image(systemName: "chevron.down").font(.caption2).foregroundStyle(.primary)
                 }
             }
+            // The screen's .tint(.brand) would otherwise paint the menu label
+            // emerald, which reads as an action.
+            .tint(.primary)
             .accessibilityIdentifier("workoutPicker")
 
             Spacer()
