@@ -3,8 +3,9 @@ import XCTest
 extension XCUIApplication {
     /// Launch past the first-run screen, and past a resume prompt left by an
     /// earlier run on the same day.
-    static func launched() -> XCUIApplication {
+    static func launched(seedDemoData: Bool = false) -> XCUIApplication {
         let app = XCUIApplication()
+        if seedDemoData { app.launchArguments.append("-seedDemoData") }
         // UserDefaults reads launch arguments as an override domain, which wins
         // over anything on disk. The draft override is a non-Data value, so
         // DraftStore.load() finds nothing and a draft left by an earlier test

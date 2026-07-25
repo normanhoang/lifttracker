@@ -1,8 +1,10 @@
 import XCTest
 
 final class ScreenshotUITests: XCTestCase {
+    /// Captured against ten weeks of seeded training — History and Progress are
+    /// the screens this release improved most and both look like nothing empty.
     func testCaptureAllTabs() {
-        let app = XCUIApplication.launched()
+        let app = XCUIApplication.launched(seedDemoData: true)
 
         let tabs = ["Workout", "History", "Progress", "Settings"]
         for (index, tab) in tabs.enumerated() {
