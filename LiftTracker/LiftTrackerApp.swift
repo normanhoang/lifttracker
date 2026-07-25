@@ -16,6 +16,12 @@ struct LiftTrackerApp: App {
             fatalError("Failed to create ModelContainer: \(error)")
         }
         Self.seedIfNeeded(container.mainContext)
+        #if DEBUG
+        // App Store screenshots: ten weeks of training instead of a fresh install.
+        if ProcessInfo.processInfo.arguments.contains("-seedDemoData") {
+            DemoData.reset(container.mainContext)
+        }
+        #endif
         UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
