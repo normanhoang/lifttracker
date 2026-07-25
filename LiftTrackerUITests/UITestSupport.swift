@@ -5,13 +5,32 @@ extension XCUIApplication {
     /// earlier run on the same day.
     static func launched() -> XCUIApplication {
         let app = XCUIApplication()
-        // UserDefaults reads launch arguments as an override domain.
-        app.launchArguments += ["-hasCompletedFirstRun", "YES"]
+        // UserDefaults reads launch arguments as an override domain, which wins
+        // over anything on disk. The draft override is a non-Data value, so
+        // DraftStore.load() finds nothing and a draft left by an earlier test
+        // can't leak into this one.
+        // Key is spelled out: a UI test runs in its own process and doesn't link
+        // the app module. Keep in step with DraftStore.key.
+        app.launchArguments += ["-hasCompletedFirstRun", "YES", "-workoutDraft", ""]
         app.launch()
 
         let startFresh = app.buttons["Start fresh"]
         if startFresh.waitForExistence(timeout: 1) { startFresh.tap() }
         return app
+    }
+
+    /// Wait for an element's label to become `expected`. A synthesized tap and
+    /// the accessibility tree catching up are not the same instant, so reading
+    /// `.label` straight after a gesture is a race.
+    func waitForLabel(_ element: XCUIElement, _ expected: String,
+                      timeout: TimeInterval = 3,
+                      file: StaticString = #filePath, line: UInt = #line) {
+        let predicate = NSPredicate(format: "label == %@", expected)
+        let expectation = XCTNSPredicateExpectation(predicate: predicate, object: element)
+        let result = XCTWaiter().wait(for: [expectation], timeout: timeout)
+        XCTAssertEqual(result, .completed,
+                       "expected label '\(expected)', got '\(element.label)'",
+                       file: file, line: line)
     }
 
     /// Open the day menu and choose whichever of A/B isn't showing. Which day

@@ -127,10 +127,12 @@ struct WorkoutView: View {
                         timer.sync(draft.snapshot)
                     }
                 }
+                // Always available: with nothing logged `request` skips the
+                // confirmation and this is simply a reset, which is worth having
+                // as a guaranteed way out of any stuck state.
                 Button("Discard workout", systemImage: "trash", role: .destructive) {
                     request(.discard)
                 }
-                .disabled(!draft.hasProgress)
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.headline)

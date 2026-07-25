@@ -10,7 +10,7 @@ final class SetTileGestureTests: XCTestCase {
 
         let tile = app.buttons["repCircle.squat.0"]
         XCTAssertTrue(tile.waitForExistence(timeout: 3))
-        XCTAssertEqual(tile.label, "Set not logged")
+        app.waitForLabel(tile, "Set not logged")
 
         tile.press(forDuration: 0.8)
 
@@ -28,14 +28,21 @@ final class SetTileGestureTests: XCTestCase {
         XCTAssertTrue(tile.waitForExistence(timeout: 3))
 
         tile.press(forDuration: 0.8)
-        XCTAssertTrue(app.buttons["repPicker.0"].waitForExistence(timeout: 2))
+        let pick = app.buttons["repPicker.0"]
+        XCTAssertTrue(pick.waitForExistence(timeout: 2))
 
-        // Dismiss without picking: the set must still be untouched.
-        app.swipeDown(velocity: .fast)
+        // Dismiss without picking. Dragged from inside the sheet rather than
+        // swiping the whole app, which lands wherever the app happens to be.
+        pick.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+            .press(forDuration: 0.05,
+                   thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 1.0)))
 
         let after = app.buttons["repCircle.squat.0"]
-        XCTAssertTrue(after.waitForExistence(timeout: 2))
-        XCTAssertEqual(after.label, "Set not logged", "a hold is not a tap")
+        XCTAssertTrue(after.waitForExistence(timeout: 3))
+        app.waitForLabel(after, "Set not logged")
+        // The clock is the independent witness: it only starts when a set is
+        // logged, so its absence proves the hold didn't log one.
+        XCTAssertFalse(app.staticTexts["bottomBar.timer"].exists)
     }
 
     /// Holding a logged tile is the correction path.
@@ -45,12 +52,12 @@ final class SetTileGestureTests: XCTestCase {
         let tile = app.buttons["repCircle.squat.0"]
         XCTAssertTrue(tile.waitForExistence(timeout: 3))
         tile.tap()
-        XCTAssertEqual(tile.label, "5 reps")
+        app.waitForLabel(tile, "5 reps")
 
         tile.press(forDuration: 0.8)
         XCTAssertTrue(app.buttons["repPicker.2"].waitForExistence(timeout: 2))
         app.buttons["repPicker.2"].tap()
 
-        XCTAssertEqual(app.buttons["repCircle.squat.0"].label, "2 reps")
+        app.waitForLabel(app.buttons["repCircle.squat.0"], "2 reps")
     }
 }

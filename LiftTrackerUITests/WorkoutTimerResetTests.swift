@@ -20,6 +20,26 @@ final class WorkoutTimerResetTests: XCTestCase {
 
         XCTAssertFalse(app.buttons["undoLastSet"].exists, "nothing left to undo")
         XCTAssertEqual(app.buttons["finishWorkout"].label, "Log a set to finish")
+        XCTAssertFalse(sessionClock.exists, "the session clock stops with it")
+    }
+
+    /// Discard stays reachable with nothing logged, so there is always a way out
+    /// of a screen that has got itself into a state you don't want.
+    func testDiscardIsAvailableWithAnEmptyGrid() {
+        let app = XCUIApplication.launched()
+
+        let overflow = app.buttons["workoutOverflow"]
+        XCTAssertTrue(overflow.waitForExistence(timeout: 3))
+        overflow.tap()
+
+        let discard = app.buttons["Discard workout"]
+        XCTAssertTrue(discard.waitForExistence(timeout: 2))
+        XCTAssertTrue(discard.isEnabled, "an escape hatch that disables itself is not one")
+        discard.tap()
+
+        // Nothing to lose, so it resets without asking.
+        XCTAssertFalse(app.buttons["keepLogging"].waitForExistence(timeout: 1))
+        XCTAssertTrue(app.buttons["repCircle.squat.0"].waitForExistence(timeout: 2))
     }
 
     /// Tapping the same tile repeatedly must not walk the rep count down — that
@@ -30,7 +50,7 @@ final class WorkoutTimerResetTests: XCTestCase {
         let tile = app.buttons["repCircle.squat.0"]
         XCTAssertTrue(tile.waitForExistence(timeout: 3))
         tile.tap()
-        XCTAssertEqual(tile.label, "5 reps")
+        app.waitForLabel(tile, "5 reps")
 
         tile.tap()
         XCTAssertTrue(app.buttons["repPicker.3"].waitForExistence(timeout: 2),
@@ -38,6 +58,6 @@ final class WorkoutTimerResetTests: XCTestCase {
         app.buttons["repPicker.3"].tap()
 
         XCTAssertTrue(app.buttons["repCircle.squat.0"].waitForExistence(timeout: 2))
-        XCTAssertEqual(app.buttons["repCircle.squat.0"].label, "3 reps")
+        app.waitForLabel(app.buttons["repCircle.squat.0"], "3 reps")
     }
 }

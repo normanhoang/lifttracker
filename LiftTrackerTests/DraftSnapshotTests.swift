@@ -88,6 +88,44 @@ final class DraftSnapshotTests: XCTestCase {
         XCTAssertEqual(s.loggedSetCount, 0)
     }
 
+    // MARK: - Session clock
+
+    func testUndoingTheOnlyLoggedSetClearsTheSessionStart() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        XCTAssertNotNil(s.startedAt)
+
+        s.undoLastSet()
+        XCTAssertNil(s.startedAt, "a mis-tap you took back never started the session")
+    }
+
+    func testClearingTheOnlySetFromThePickerClearsTheSessionStart() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.log(exerciseID: "squat", setIndex: 0, reps: nil)
+        XCTAssertNil(s.startedAt, "clearing and undoing leave the same state")
+    }
+
+    func testUndoingOneOfSeveralSetsKeepsTheSessionRunning() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.log(exerciseID: "squat", setIndex: 1, reps: 5)
+        let started = s.startedAt
+
+        s.undoLastSet()
+        XCTAssertEqual(s.startedAt, started, "the session is still underway")
+    }
+
+    func testLoggingAgainAfterAFullUndoRestartsTheClock() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.undoLastSet()
+
+        let later = Date().addingTimeInterval(600)
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5, at: later)
+        XCTAssertEqual(s.startedAt, later, "duration runs from the real first set")
+    }
+
     // MARK: - Skip
 
     func testSkipCompletesTheLiftWithoutLoggingSets() {

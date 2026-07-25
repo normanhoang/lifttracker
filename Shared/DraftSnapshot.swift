@@ -100,7 +100,10 @@ extension DraftSnapshot {
         if startedAt == nil, value != nil { startedAt = now }
 
         guard wasEmpty, value != nil else {
-            if value == nil { clearRest() }
+            if value == nil {
+                clearRest()
+                clearStartIfEmpty()
+            }
             return false
         }
         startRest(after: i, at: now)
@@ -113,6 +116,14 @@ extension DraftSnapshot {
               let last = lifts[i].lastLoggedIndex else { return }
         lifts[i].reps[last] = nil
         clearRest()
+        clearStartIfEmpty()
+    }
+
+    /// Undoing (or clearing) the last remaining set means the session never
+    /// really started. Leaving the clock running would bank the time between a
+    /// mis-tap and the real first set into the saved duration.
+    private mutating func clearStartIfEmpty() {
+        if loggedSetCount == 0 { startedAt = nil }
     }
 
     /// Mark a lift deliberately skipped: no sets, no progression change.
