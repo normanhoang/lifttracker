@@ -5,7 +5,7 @@ final class ProgressionTests: XCTestCase {
 
     // Build a session with one logged exercise at `weight`, with the given reps.
     private func session(_ ex: Exercise, weight: Double, reps: [Int], sets: Int = 5) -> WorkoutSession {
-        let s = WorkoutSession(date: .now, type: .a, bodyWeight: nil)
+        let s = WorkoutSession(date: .now, type: .a)
         let logged = LoggedExercise(exerciseID: ex.rawValue, weight: weight, reps: reps,
                                     targetSets: sets, targetReps: Exercise.targetReps)
         logged.session = s
@@ -14,9 +14,12 @@ final class ProgressionTests: XCTestCase {
     }
 
     // Apply progression against a single ExerciseProgress row we own.
-    private func apply(_ s: WorkoutSession, _ prog: ExerciseProgress) {
+    @discardableResult
+    private func apply(_ s: WorkoutSession, _ prog: ExerciseProgress) -> [Progression.Change] {
         Progression.apply(session: s) { _ in prog }
     }
+
+    // MARK: - Rules (unchanged contract)
 
     func testRound5() {
         XCTAssertEqual(Progression.round5(0), 0)
@@ -71,5 +74,67 @@ final class ProgressionTests: XCTestCase {
         apply(session(.squat, weight: 100, reps: []), prog)   // empty reps ⇒ skipped
         XCTAssertEqual(prog.currentWeight, 100)
         XCTAssertEqual(prog.failStreak, 1, "skip touches nothing")
+    }
+
+    // MARK: - Per-lift increment
+
+    func testIncrementOverrideWinsOverTheLiftDefault() {
+        let prog = ExerciseProgress(exerciseID: Exercise.squat.rawValue, currentWeight: 100)
+        prog.incrementOverride = 2.5
+        apply(session(.squat, weight: 100, reps: [5, 5, 5, 5, 5]), prog)
+        XCTAssertEqual(prog.currentWeight, 102.5)
+    }
+
+    func testNilOverrideKeepsTheLiftDefault() {
+        let prog = ExerciseProgress(exerciseID: Exercise.deadlift.rawValue, currentWeight: 200)
+        XCTAssertNil(prog.incrementOverride)
+        XCTAssertEqual(prog.increment(for: .deadlift), 10)
+    }
+
+    // MARK: - Outcomes
+
+    func testSuccessReportsIncreaseWithStreak() {
+        let prog = ExerciseProgress(exerciseID: Exercise.squat.rawValue, currentWeight: 180)
+        prog.successStreak = 2
+        let changes = apply(session(.squat, weight: 180, reps: [5, 5, 5, 5, 5]), prog)
+        XCTAssertEqual(changes.count, 1)
+        XCTAssertEqual(changes[0].outcome, .increased(from: 180, to: 185, streak: 3))
+    }
+
+    func testMissReportsHoldWithMissCount() {
+        let prog = ExerciseProgress(exerciseID: Exercise.ohp.rawValue, currentWeight: 95)
+        let changes = apply(session(.ohp, weight: 95, reps: [5, 5, 5, 4, 3]), prog)
+        XCTAssertEqual(changes[0].outcome, .held(weight: 95, misses: 1))
+    }
+
+    func testThirdMissReportsDeload() {
+        let prog = ExerciseProgress(exerciseID: Exercise.row.rawValue, currentWeight: 155, failStreak: 2)
+        let changes = apply(session(.row, weight: 155, reps: [5, 5, 5, 5, 4]), prog)
+        XCTAssertEqual(changes[0].outcome, .deloaded(from: 155, to: 140))
+    }
+
+    func testSkipReportsSkipped() {
+        let prog = ExerciseProgress(exerciseID: Exercise.squat.rawValue, currentWeight: 100)
+        let changes = apply(session(.squat, weight: 100, reps: []), prog)
+        XCTAssertEqual(changes[0].outcome, .skipped)
+    }
+
+    func testSuccessStreakResetsOnAMiss() {
+        let prog = ExerciseProgress(exerciseID: Exercise.squat.rawValue, currentWeight: 100)
+        prog.successStreak = 4
+        apply(session(.squat, weight: 100, reps: [5, 5, 5, 5, 1]), prog)
+        XCTAssertEqual(prog.successStreak, 0)
+    }
+
+    // MARK: - Preview
+
+    func testNextWeightPreview() {
+        let prog = ExerciseProgress(exerciseID: Exercise.squat.rawValue, currentWeight: 185)
+        XCTAssertEqual(Progression.nextWeight(prog, .squat), 190)
+    }
+
+    func testDeloadWeightPreview() {
+        let prog = ExerciseProgress(exerciseID: Exercise.row.rawValue, currentWeight: 155)
+        XCTAssertEqual(Progression.deloadWeight(prog), 140, "155 * 0.9 = 139.5 → 140")
     }
 }

@@ -9,6 +9,9 @@ enum WorkoutType: String, Codable, CaseIterable, Identifiable {
     var title: String { "Workout \(rawValue)" }
     var other: WorkoutType { self == .a ? .b : .a }
 
+    /// Which days this lands on in a three-a-week alternating schedule.
+    var dayHint: String { self == .a ? "Mon · Fri · Wed" : "Wed · Mon · Fri" }
+
     /// Exercises performed on this day, in order.
     var slots: [ExerciseSlot] {
         switch self {
@@ -48,6 +51,11 @@ enum Exercise: String, Codable, CaseIterable, Identifiable {
 
     /// Pounds added after a successful session.
     var increment: Double { self == .deadlift ? 10 : 5 }
+
+    /// Seeded rest between sets. The two lifts that put you on the floor get longer.
+    var defaultRestSeconds: Int {
+        (self == .squat || self == .deadlift) ? 180 : 90
+    }
 
     /// Default working weight (lb) seeded on first launch.
     var startingWeight: Double {

@@ -20,13 +20,13 @@ xcodegen generate
 # regenerate project
 xcodegen generate
 
-# build
+# build (use a simulator that exists — `xcrun simctl list devices available`)
 xcodebuild -project LiftTracker.xcodeproj -scheme LiftTracker \
-  -destination 'platform=iOS Simulator,name=iPhone 15' build
+  -destination 'platform=iOS Simulator,name=iPhone 17' build
 
 # test (unit + UI)
 xcodebuild -project LiftTracker.xcodeproj -scheme LiftTracker \
-  -destination 'platform=iOS Simulator,name=iPhone 15' test
+  -destination 'platform=iOS Simulator,name=iPhone 17' test
 
 # archive + export ipa for App Store
 xcodebuild -project LiftTracker.xcodeproj -scheme LiftTracker \
@@ -37,17 +37,22 @@ xcodebuild -exportArchive -archivePath build/LiftTracker.xcarchive \
 
 ## Layout
 
-- `LiftTracker/Models/` — SwiftData `@Model` types (`WorkoutSession`, `LoggedExercise`, `ExerciseProgress`) and the `Exercise` / `WorkoutType` program enums.
-- `LiftTracker/Logic/` — pure functions: `Progression` (5×5 rules), `WeightFormat` (lb/kg). Unit-tested; keep them free of SwiftUI/SwiftData.
-- `LiftTracker/Views/` — feature folders: Workout, History, Progress, Settings, plus `RootTabView`.
-- `Shared/RestTimerAttributes.swift` — ActivityKit attributes, shared between app and widget.
+- `LiftTracker/Models/` — SwiftData `@Model` types (`WorkoutSession`, `LoggedExercise`, `ExerciseProgress`, `BodyWeightEntry`) and the `Exercise` / `WorkoutType` program enums.
+- `LiftTracker/Logic/` — pure functions: `Progression` (5×5 rules + per-lift outcomes), `ProgressionCopy` (every sentence that states the rule), `PlateMath`, `BarSetting`, `LiftSeries`. Unit-tested; keep them free of SwiftUI/SwiftData.
+- `LiftTracker/Views/` — feature folders: Workout, History, Progress, Settings, plus `Components/`, `RootTabView` and `FirstRunView`.
+- `Shared/` — compiled into **both** the app and the widget target. `RestTimerAttributes` (ActivityKit), `WeightFormat`, `Theme`, and the durable draft: `DraftSnapshot` (the workout as a value, with all its mutation rules), `DraftStore` (UserDefaults), `RestActivity`, `RestIntents`.
 - `RestTimerWidget/` — Live Activity extension. **Has its own `Info.plist`** (`INFOPLIST_FILE` set), so app-level `INFOPLIST_KEY_*` build settings do NOT apply to it — edit the plist directly for widget keys.
 
 ## Conventions
 
-- Program definition (day → lifts, increments, starting weights) lives entirely in `Exercise` / `WorkoutType`. Change the workout there, not in views.
-- Progression logic: success = every set hit target reps; +increment on success, deload to 90% (round to 5) after 3 straight fails. Encoded in `Progression.apply`.
+- Program definition (day → lifts, increments, starting weights, default rest) lives entirely in `Exercise` / `WorkoutType`. Change the workout there, not in views.
+- Progression logic: success = every set hit target reps; +increment on success, deload to 90% (round to 5) after 3 straight fails. Encoded in `Progression.apply`, which also **returns** a per-lift `Outcome` — the complete screen, workout card and Settings all state the rule to the user, and none can do that from the resulting weight alone.
+- A set is `Int?` on `DraftSnapshot`: nil = not logged, otherwise reps achieved. Tap logs the target, press-and-hold opens the picker. There is no tap cycle.
+- Rest is per lift (`ExerciseProgress.restSeconds`, 0 = off), not a global setting. The countdown lives on `DraftSnapshot`, so the strip, the Lock Screen and the App Intents read one source of truth.
+- The draft is persisted on **every** mutation. Live Activity buttons run `LiveActivityIntent.perform()` in the app's process, which iOS may cold-launch, so the store is the only state they can rely on. No app group is needed and adding one would mean touching provisioning.
+- Weights are stored in pounds; plate math runs in the *display* unit against a unit-native plate set (45lb bar / 20kg bar). Never show a converted plate.
 - New pure logic → add a test in `LiftTrackerTests/`.
+- `confirmationDialog` does not expose its cancel row to XCUITest, so the discard confirmation is the hand-built `DiscardSheet` overlay. Don't "simplify" it back to the system dialog — the cancel reading "Keep logging" is the point of the sheet.
 - On first launch, `LiftTrackerApp.seedIfNeeded` creates an `ExerciseProgress` row per lift.
 - **App icon must have no alpha channel.** If `icon-1024.png` is RGBA (even fully opaque), the watchOS Smart Stack renders the Live Activity icon as a white box; iPhone looks fine, so it slips through testing. Has regressed twice. After regenerating the icon, verify with `sips -g hasAlpha` (must be `no`).
 

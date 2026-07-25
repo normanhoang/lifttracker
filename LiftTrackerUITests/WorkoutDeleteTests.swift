@@ -1,23 +1,31 @@
 import XCTest
 
 final class WorkoutDeleteTests: XCTestCase {
-    /// Swiping a past workout and tapping the red "Delete" swipe action must
-    /// delete it immediately -- no follow-up confirmation dialog.
-    func testSwipeDeleteRemovesWorkoutWithoutConfirmation() {
-        let app = XCUIApplication()
-        app.launch()
+    /// Deleting a session is an explicit action at the foot of the day sheet,
+    /// not a hidden swipe, and it leaves an undo behind.
+    func testDeletingFromTheDaySheetOffersAnUndo() {
+        let app = XCUIApplication.launched()
 
-        app.buttons["repCircle.squat.0"].tap()
-        app.buttons["Finish"].tap()
-        app.buttons["Done"].tap()
+        app.logEverySet()
+        let finish = app.buttons["finishWorkout"]
+        XCTAssertEqual(finish.label, "Finish workout", "every set logged")
+        finish.tap()
+
+        let done = app.buttons["Done"]
+        XCTAssertTrue(done.waitForExistence(timeout: 3))
+        done.tap()
 
         app.buttons["History"].tap()
-        let row = app.staticTexts["Workout A"]
-        XCTAssertTrue(row.waitForExistence(timeout: 2))
 
-        row.swipeLeft()
-        app.buttons["Delete"].tap()
+        let card = app.buttons.matching(identifier: "sessionCard").element(boundBy: 0)
+        XCTAssertTrue(card.waitForExistence(timeout: 3))
+        card.tap()
 
-        XCTAssertTrue(app.staticTexts["No workouts yet"].waitForExistence(timeout: 2))
+        let delete = app.buttons["deleteSession"]
+        XCTAssertTrue(delete.waitForExistence(timeout: 3))
+        delete.tap()
+
+        XCTAssertTrue(app.buttons["Undo"].waitForExistence(timeout: 3),
+                      "a delete you cannot take back is the wrong kind of quiet")
     }
 }

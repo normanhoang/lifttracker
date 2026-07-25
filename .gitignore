@@ -24,3 +24,6 @@ Carthage/Build/
 
 # graphify knowledge-graph output (regenerable analysis artifact)
 graphify-out/
+
+# design handoff bundle (reference only, not part of the build)
+design_handoff_lifttracker_redesign/

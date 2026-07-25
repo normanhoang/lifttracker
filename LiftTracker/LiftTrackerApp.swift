@@ -9,7 +9,8 @@ struct LiftTrackerApp: App {
     init() {
         do {
             container = try ModelContainer(
-                for: WorkoutSession.self, LoggedExercise.self, ExerciseProgress.self
+                for: WorkoutSession.self, LoggedExercise.self, ExerciseProgress.self,
+                BodyWeightEntry.self
             )
         } catch {
             fatalError("Failed to create ModelContainer: \(error)")
@@ -33,7 +34,9 @@ struct LiftTrackerApp: App {
         let have = Set(existing.map(\.exerciseID))
         var inserted = false
         for ex in Exercise.allCases where !have.contains(ex.rawValue) {
-            context.insert(ExerciseProgress(exerciseID: ex.rawValue, currentWeight: ex.startingWeight))
+            let row = ExerciseProgress(exerciseID: ex.rawValue, currentWeight: ex.startingWeight)
+            row.restSeconds = ex.defaultRestSeconds
+            context.insert(row)
             inserted = true
         }
         if inserted {
@@ -42,6 +45,7 @@ struct LiftTrackerApp: App {
             }
         }
         backfillBestWeights(context)
+        migrateRestDuration(context)
     }
 
     /// One-time backfill of `ExerciseProgress.bestWeight` from history, for installs that
@@ -62,5 +66,31 @@ struct LiftTrackerApp: App {
             print("backfillBestWeights: failed to save: \(error)")
         }
         UserDefaults.standard.set(true, forKey: "didBackfillBestWeight")
+    }
+
+    /// Rest moved from one global setting to a per-lift value. Carry the user's
+    /// choice across — in particular an "Off", which must not silently flip back on.
+    @MainActor
+    private static func migrateRestDuration(_ context: ModelContext) {
+        let defaults = UserDefaults.standard
+        guard !defaults.bool(forKey: "didMigrateRestDuration") else { return }
+        defaults.set(true, forKey: "didMigrateRestDuration")
+
+        let rows = (try? context.fetch(FetchDescriptor<ExerciseProgress>())) ?? []
+        let stored = defaults.object(forKey: RestDurationSetting.key) as? Double
+
+        if stored == nil {
+            // Never chose one: take the per-lift defaults rather than a flat 90.
+            for row in rows {
+                row.restSeconds = row.exercise?.defaultRestSeconds ?? 90
+            }
+        } else if let resolved = RestDurationSetting.resolve(stored) {
+            for row in rows { row.restSeconds = Int(resolved) }
+        } else {
+            for row in rows { row.restSeconds = 0 }   // was Off
+        }
+        do { try context.save() } catch {
+            print("migrateRestDuration: failed to save: \(error)")
+        }
     }
 }

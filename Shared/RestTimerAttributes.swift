@@ -1,22 +1,36 @@
 import Foundation
 import ActivityKit
 
-/// Live Activity payload for the rest-timer count-up. The widget renders a
-/// self-updating `Text(startDate, style: .timer)`, so no per-second pushes are needed.
+/// Live Activity payload for the rest countdown. The widget renders
+/// `Text(timerInterval:countsDown:)` against `endDate`, so it ticks without
+/// per-second pushes; a push is only needed when the target itself changes
+/// (+30s, a new set, skip).
 struct RestTimerAttributes: ActivityAttributes {
     struct ContentState: Codable, Hashable {
-        var startDate: Date
+        /// When the countdown reaches zero.
+        var endDate: Date
+        /// Full rest length for this set, so the bar/ring stays proportional
+        /// after `+30s` extends both ends.
+        var targetSeconds: Int
+        var liftName: String
+        /// 1-based number of the set the user comes back to.
+        var setNumber: Int
+        var totalSets: Int
+        /// Preformatted so the widget never needs the app's unit setting.
+        var weightText: String
+        /// Which lift/set the `Log set n` button acts on.
+        var liftID: String
+        var setIndex: Int
+
+        var startDate: Date { endDate.addingTimeInterval(-TimeInterval(targetSeconds)) }
     }
 
     var workoutTitle: String
 }
 
-/// Shared so the app, the widget extension, and unit tests all resolve the
-/// same rest-duration default. `UserDefaults.double(forKey:)` returns 0 for a
-/// missing key, which is not a valid duration, so callers must route through
-/// `resolve` rather than reading the default inline. "Off" is stored as the
-/// `offValue` sentinel (0 can't be used — it collides with the missing key)
-/// and resolves to nil, meaning no rest-complete notification.
+/// Legacy global rest duration. Superseded by per-lift `ExerciseProgress.restSeconds`;
+/// kept only so the one-time migration can read what the user had chosen — in
+/// particular an "Off" that must not silently flip back on.
 enum RestDurationSetting {
     static let key = "restDurationSeconds"
     static let defaultValue: TimeInterval = 60

@@ -2,8 +2,7 @@ import XCTest
 
 final class ScreenshotUITests: XCTestCase {
     func testCaptureAllTabs() {
-        let app = XCUIApplication()
-        app.launch()
+        let app = XCUIApplication.launched()
 
         let tabs = ["Workout", "History", "Progress", "Settings"]
         for (index, tab) in tabs.enumerated() {
@@ -13,5 +12,18 @@ final class ScreenshotUITests: XCTestCase {
             attachment.lifetime = .keepAlways
             add(attachment)
         }
+    }
+
+    /// The one screen that only ever appears on a fresh install.
+    func testCaptureFirstRun() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-hasCompletedFirstRun", "NO"]
+        app.launch()
+
+        XCTAssertTrue(app.buttons["Start with an empty bar"].waitForExistence(timeout: 3))
+        let attachment = XCTAttachment(screenshot: app.screenshot())
+        attachment.name = "00_first_run"
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
 }
