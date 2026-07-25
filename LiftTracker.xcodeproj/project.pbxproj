@@ -62,6 +62,7 @@
 		BAA494794A796FBCE32BB603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D97485476977181444E0CC /* Assets.xcassets */; };
 		BD2D85DC37185403F69FE2B8 /* WeightFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82300664CEC6D744276D36DD /* WeightFormatTests.swift */; };
 		BE1BEB444E4DF4CA9FFFD61F /* DraftSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85D00273C73526E363DC07C /* DraftSnapshotTests.swift */; };
+		C6C17ECC67B7156A3DEB4447 /* SetTileGestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899DDD81241C42FA79ADA0B0 /* SetTileGestureTests.swift */; };
 		C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F51B228006B99F98F02F5 /* WorkoutView.swift */; };
 		CCDA3441D5E01FDA40EA9644 /* SessionDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789B728A011DDD9F41DE16E /* SessionDetailSheet.swift */; };
 		D0DC1692943ABB74ACAD9FA0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434ED1EF9041EBE48A73C940 /* Theme.swift */; };
@@ -151,6 +152,7 @@
 		82300664CEC6D744276D36DD /* WeightFormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightFormatTests.swift; sourceTree = "<group>"; };
 		828F4BCAC4035DF28EB88D8D /* ExerciseDef.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDef.swift; sourceTree = "<group>"; };
 		89421D6E753048EBE6967784 /* RootTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabView.swift; sourceTree = "<group>"; };
+		899DDD81241C42FA79ADA0B0 /* SetTileGestureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTileGestureTests.swift; sourceTree = "<group>"; };
 		8BBFC6C10323913F7A022F2B /* ProgressionCopyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressionCopyTests.swift; sourceTree = "<group>"; };
 		8F0AB8E77B4B20809E7FECAD /* UITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITestSupport.swift; sourceTree = "<group>"; };
 		8F1C153260CA0311BFDFAED1 /* ProgressScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressScreen.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				4A0FE00AC7011C14E54F34F8 /* ScreenshotUITests.swift */,
+				899DDD81241C42FA79ADA0B0 /* SetTileGestureTests.swift */,
 				8F0AB8E77B4B20809E7FECAD /* UITestSupport.swift */,
 				18CB7069871FDA32892924A4 /* WorkoutDeleteTests.swift */,
 				13D582249973B0725043BAE2 /* WorkoutSwitchGuardTests.swift */,
@@ -552,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1225A33BA3E3CF66DEE6ED5E /* ScreenshotUITests.swift in Sources */,
+				C6C17ECC67B7156A3DEB4447 /* SetTileGestureTests.swift in Sources */,
 				9006FA43832796C910BFFCD3 /* UITestSupport.swift in Sources */,
 				4D7A9860B56C1605D10DCBC8 /* WorkoutDeleteTests.swift in Sources */,
 				660F41207E8D9A81CD0C2003 /* WorkoutSwitchGuardTests.swift in Sources */,
