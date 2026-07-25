@@ -44,6 +44,12 @@ final class PlateMathTests: XCTestCase {
         XCTAssertEqual(PlateMath.closestLoadable(to: 46, bar: 45, available: [45]), 45)
     }
 
+    func testPlateLabelsKeepEveryDigitOfAMetricPlate() {
+        XCTAssertEqual(PlateMath.label(45), "45")
+        XCTAssertEqual(PlateMath.label(2.5), "2.5")
+        XCTAssertEqual(PlateMath.label(1.25), "1.25", "a 1.25kg plate is not a 1.2kg plate")
+    }
+
     func testEmptyPlateSetIsHandled() {
         XCTAssertEqual(PlateMath.perSide(total: 135, bar: 45, available: []), [])
         XCTAssertFalse(PlateMath.isLoadable(total: 135, bar: 45, available: []))
