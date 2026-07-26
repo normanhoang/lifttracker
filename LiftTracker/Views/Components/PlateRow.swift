@@ -29,7 +29,7 @@ struct PlateRow: View {
                 .foregroundStyle(.tertiary)
 
             ForEach(Array(plates.enumerated()), id: \.offset) { _, p in
-                Text(number(p))
+                Text(PlateMath.label(p))
                     .font(.caption.bold())
                     .monospacedDigit()
                     .padding(.horizontal, 10)
@@ -41,20 +41,16 @@ struct PlateRow: View {
 
             if !loadable, showsClosest {
                 let near = PlateMath.closestLoadable(to: total, bar: config.bar, available: config.plates)
-                Text("closest loadable: \(number(near))")
+                Text("closest loadable: \(PlateMath.label(near))")
                     .font(.caption2)
                     .foregroundStyle(.orange)
             } else {
-                Text("+ \(number(config.bar))\(unit.rawValue) bar")
+                Text("+ \(PlateMath.label(config.bar))\(unit.rawValue) bar")
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
             }
             Spacer(minLength: 0)
         }
         .lineLimit(1)
-    }
-
-    private func number(_ v: Double) -> String {
-        v.rounded() == v ? String(Int(v)) : String(format: "%.2g", v)
     }
 }

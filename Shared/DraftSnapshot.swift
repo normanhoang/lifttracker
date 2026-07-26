@@ -45,6 +45,10 @@ struct DraftSnapshot: Codable, Equatable {
     var restLiftID: String?
     var restSetIndex: Int?
 
+    /// A lift the user expanded by hand, overriding program order. Lives on the
+    /// snapshot so a cold launch reopens the lift mid-workout, not the default.
+    var selectedLiftID: String?
+
     init(typeRaw: String, title: String, lifts: [DraftLift],
          bodyWeightLb: Double? = nil, startedAt: Date? = nil, savedAt: Date = .now) {
         self.typeRaw = typeRaw
@@ -66,8 +70,13 @@ extension DraftSnapshot {
     /// At least one set logged or one lift skipped — i.e. there is something to lose.
     var hasProgress: Bool { loggedSetCount > 0 || lifts.contains(where: \.skipped) }
 
-    /// The expanded lift: the first one that isn't finished.
-    var activeLiftIndex: Int? { lifts.firstIndex { !$0.isComplete } }
+    /// The expanded lift: the one the user picked, else the first unfinished.
+    var activeLiftIndex: Int? {
+        if let id = selectedLiftID, let i = lifts.firstIndex(where: { $0.exerciseID == id }) {
+            return i
+        }
+        return lifts.firstIndex { !$0.isComplete }
+    }
 
     var isFinishable: Bool { !lifts.isEmpty && lifts.allSatisfy(\.isComplete) && loggedSetCount > 0 }
 
@@ -106,8 +115,20 @@ extension DraftSnapshot {
             }
             return false
         }
+        // Logging the last set of a hand-picked lift ends the detour; program
+        // order decides what expands next. Corrections (wasEmpty == false)
+        // never get here, so reopening a done lift to fix a set keeps it open.
+        if selectedLiftID == exerciseID, lifts[i].isComplete {
+            selectedLiftID = nil
+        }
         startRest(after: i, at: now)
         return true
+    }
+
+    /// Expand a lift out of program order. Unknown IDs are ignored.
+    mutating func select(exerciseID: String) {
+        guard lifts.contains(where: { $0.exerciseID == exerciseID }) else { return }
+        selectedLiftID = exerciseID
     }
 
     /// Clear the most recently logged set of the active lift and stop resting.
@@ -132,6 +153,16 @@ extension DraftSnapshot {
         lifts[i].skipped = true
         lifts[i].reps = Array(repeating: nil, count: lifts[i].reps.count)
         if restLiftID == exerciseID { clearRest() }
+        if selectedLiftID == exerciseID { selectedLiftID = nil }
+    }
+
+    /// Finishing early: lifts never started become deliberate skips, so
+    /// progression leaves them alone. Lifts with any logged sets keep their
+    /// reps — the empty remainder saves as misses, which is the truth.
+    mutating func skipUntouchedLifts() {
+        for lift in lifts where !lift.skipped && lift.loggedCount == 0 {
+            skip(exerciseID: lift.exerciseID)
+        }
     }
 
     mutating func unskip(exerciseID: String) {
@@ -151,11 +182,12 @@ extension DraftSnapshot {
         guard seconds > 0 else { clearRest(); return }
 
         // The set the user comes back to: the next one on this lift, else the
-        // first set of the next unfinished lift.
+        // first set of the first unfinished lift — which, with out-of-order
+        // logging, can sit earlier in the list than the one just finished.
         if let next = lifts[liftIndex].nextIndex {
             restLiftID = lifts[liftIndex].exerciseID
             restSetIndex = next
-        } else if let nextLift = lifts.dropFirst(liftIndex + 1).firstIndex(where: { !$0.isComplete }) {
+        } else if let nextLift = lifts.firstIndex(where: { !$0.isComplete }) {
             restLiftID = lifts[nextLift].exerciseID
             restSetIndex = lifts[nextLift].nextIndex ?? 0
         } else {

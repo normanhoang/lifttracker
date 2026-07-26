@@ -169,16 +169,30 @@ struct SettingsView: View {
         }
     }
 
+    /// One row when the set fits — the kg set (seven plates, "1.25" among them)
+    /// does not, and a squeezed row wraps the chip text mid-number.
     private var plateGrid: some View {
         let all = BarSetting.allPlates(unit)
+        return ViewThatFits(in: .horizontal) {
+            plateChips(all)
+            VStack(alignment: .leading, spacing: 8) {
+                plateChips(Array(all.prefix((all.count + 1) / 2)))
+                plateChips(Array(all.suffix(all.count / 2)))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func plateChips(_ plates: [Double]) -> some View {
         let owned = Set(BarSetting.parse(platesCSV, unit: unit))
         return HStack(spacing: 8) {
-            ForEach(all, id: \.self) { plate in
+            ForEach(plates, id: \.self) { plate in
                 let isOwned = owned.contains(plate)
                 Button { toggle(plate) } label: {
                     Text(plateLabel(plate))
                         .font(.subheadline.weight(.semibold))
                         .monospacedDigit()
+                        .lineLimit(1)
                         .foregroundStyle(isOwned ? AnyShapeStyle(Color.brand) : AnyShapeStyle(.tertiary))
                         .padding(.horizontal, 11)
                         .padding(.vertical, 6)
@@ -187,7 +201,6 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.plain)
             }
-            Spacer(minLength: 0)
         }
     }
 
@@ -218,9 +231,7 @@ struct SettingsView: View {
 
     private var platesCSV: String { unit == .kg ? platesKgCSV : platesLbCSV }
 
-    private func plateLabel(_ plate: Double) -> String {
-        plate.rounded() == plate ? String(Int(plate)) : String(format: "%.2g", plate)
-    }
+    private func plateLabel(_ plate: Double) -> String { PlateMath.label(plate) }
 
     private func toggle(_ plate: Double) {
         var owned = Set(BarSetting.parse(platesCSV, unit: unit))

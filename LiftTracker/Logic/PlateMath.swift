@@ -9,6 +9,11 @@ enum PlateMath {
 
     private static let epsilon = 0.001
 
+    /// A plate as it is written on the plate: "45", "2.5", "1.25".
+    static func label(_ plate: Double) -> String {
+        plate.rounded() == plate ? String(Int(plate)) : String(format: "%g", plate)
+    }
+
     /// Plates for ONE side, heaviest first. Empty when the weight is the bare bar.
     /// `available` is the subset the user owns (Settings → The bar).
     static func perSide(total: Double, bar: Double, available: [Double]) -> [Double] {
