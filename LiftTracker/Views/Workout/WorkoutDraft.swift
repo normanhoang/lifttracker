@@ -118,6 +118,16 @@ final class WorkoutDraft: ObservableObject {
         persist()
     }
 
+    func select(_ ex: Exercise) {
+        snapshot.select(exerciseID: ex.rawValue)
+        persist()
+    }
+
+    func skipUntouchedLifts() {
+        snapshot.skipUntouchedLifts()
+        persist()
+    }
+
     // MARK: - Rest
 
     func addRest(_ seconds: Int) {

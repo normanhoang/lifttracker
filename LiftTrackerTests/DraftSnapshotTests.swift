@@ -145,6 +145,40 @@ final class DraftSnapshotTests: XCTestCase {
         XCTAssertEqual(s.lifts[0].reps.compactMap { $0 }, [])
     }
 
+    // MARK: - Finish early
+
+    func testFinishEarlySkipsUntouchedLiftsOnly() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.skipUntouchedLifts()
+        XCTAssertTrue(s.lifts[1].skipped, "bench was never started")
+        XCTAssertFalse(s.lifts[0].skipped, "a lift with logged sets is not a skip")
+        XCTAssertEqual(s.lifts[0].reps[0], 5, "logged work survives")
+    }
+
+    func testFinishEarlyLeavesAFullyUntouchedDraftAllSkipped() {
+        var s = snapshot()
+        s.skipUntouchedLifts()
+        XCTAssertTrue(s.lifts.allSatisfy(\.skipped))
+    }
+
+    func testFinishEarlyClearsRestPointedAtAnUntouchedLift() {
+        var s = snapshot(sets: 1)
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        XCTAssertEqual(s.restLiftID, "bench", "rest ring moved on to bench")
+        s.skipUntouchedLifts()
+        XCTAssertNil(s.restEndDate, "no set to come back to")
+    }
+
+    func testFinishEarlyIsStableOnAlreadySkippedLifts() {
+        var s = snapshot()
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.skip(exerciseID: "bench")
+        let before = s
+        s.skipUntouchedLifts()
+        XCTAssertEqual(s, before)
+    }
+
     // MARK: - Finish gate
 
     func testFinishableOnlyWhenEveryLiftIsComplete() {
@@ -202,6 +236,90 @@ final class DraftSnapshotTests: XCTestCase {
         var s = snapshot()
         XCTAssertFalse(s.logRingedSet())
         XCTAssertEqual(s.loggedSetCount, 0)
+    }
+
+    // MARK: - Selection
+
+    func testSelectingALiftMakesItActive() {
+        var s = snapshot()
+        s.select(exerciseID: "bench")
+        XCTAssertEqual(s.activeLiftIndex, 1)
+    }
+
+    func testSelectingBackToAnEarlierLiftWorks() {
+        var s = snapshot()
+        s.select(exerciseID: "bench")
+        s.select(exerciseID: "squat")
+        XCTAssertEqual(s.activeLiftIndex, 0)
+    }
+
+    func testSelectionStaysThroughPartialLogging() {
+        var s = snapshot()
+        s.select(exerciseID: "bench")
+        s.log(exerciseID: "bench", setIndex: 0, reps: 5)
+        XCTAssertEqual(s.activeLiftIndex, 1, "a half-done lift keeps focus")
+    }
+
+    func testCompletingTheSelectedLiftFallsBackToFirstIncomplete() {
+        var s = snapshot(sets: 2)
+        s.select(exerciseID: "bench")
+        s.log(exerciseID: "bench", setIndex: 0, reps: 5)
+        s.log(exerciseID: "bench", setIndex: 1, reps: 5)
+        XCTAssertEqual(s.activeLiftIndex, 0, "program order resumes after the detour")
+    }
+
+    func testSelectingACompletedLiftReopensIt() {
+        var s = snapshot(sets: 1)
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.select(exerciseID: "squat")
+        XCTAssertEqual(s.activeLiftIndex, 0)
+    }
+
+    func testCorrectingAReopenedCompletedLiftKeepsItOpen() {
+        var s = snapshot(sets: 1)
+        s.log(exerciseID: "squat", setIndex: 0, reps: 5)
+        s.select(exerciseID: "squat")
+        s.log(exerciseID: "squat", setIndex: 0, reps: 3)
+        XCTAssertEqual(s.activeLiftIndex, 0, "a correction does not kick you out")
+    }
+
+    func testSkippingTheSelectedLiftClearsSelection() {
+        var s = snapshot()
+        s.select(exerciseID: "bench")
+        s.skip(exerciseID: "bench")
+        XCTAssertEqual(s.activeLiftIndex, 0, "focus falls back to the first incomplete lift")
+    }
+
+    func testSelectingAnUnknownLiftIsANoOp() {
+        var s = snapshot()
+        s.select(exerciseID: "deadlift")
+        XCTAssertEqual(s.activeLiftIndex, 0)
+    }
+
+    func testRestPointsAtFirstIncompleteWhenTheSelectedLiftFinishes() {
+        var s = snapshot(sets: 2)
+        s.select(exerciseID: "bench")
+        s.log(exerciseID: "bench", setIndex: 0, reps: 5)
+        s.log(exerciseID: "bench", setIndex: 1, reps: 5)
+        XCTAssertEqual(s.restLiftID, "squat", "rest ring comes back to the earlier lift")
+        XCTAssertEqual(s.restSetIndex, 0)
+    }
+
+    func testSelectionSurvivesCodableRoundTrip() throws {
+        var s = snapshot()
+        s.select(exerciseID: "bench")
+        let data = try JSONEncoder().encode(s)
+        let back = try JSONDecoder().decode(DraftSnapshot.self, from: data)
+        XCTAssertEqual(back.activeLiftIndex, 1)
+    }
+
+    func testDraftSavedBeforeSelectionExistedStillDecodes() throws {
+        let data = try JSONEncoder().encode(snapshot())
+        var json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+        json.removeValue(forKey: "selectedLiftID")
+        let stripped = try JSONSerialization.data(withJSONObject: json)
+        let back = try JSONDecoder().decode(DraftSnapshot.self, from: stripped)
+        XCTAssertEqual(back.activeLiftIndex, 0)
     }
 
     // MARK: - Round trip

@@ -124,10 +124,12 @@ struct WorkoutView: View {
             }
 
             Menu {
-                if let active = activeLift {
-                    Button("Skip \(active.name) today", systemImage: "minus.circle") {
-                        draft.skip(Exercise(rawValue: active.exerciseID) ?? .squat)
-                        timer.sync(draft.snapshot)
+                if draft.loggedSetCount > 0 {
+                    Button("Finish workout early", systemImage: "flag.checkered") {
+                        draft.skipUntouchedLifts()
+                        // Same one-tick deferral as `request`: presenting
+                        // straight out of a Menu action races its dismissal.
+                        DispatchQueue.main.async { finish() }
                     }
                 }
                 // Always available: with nothing logged `request` skips the
@@ -163,10 +165,6 @@ struct WorkoutView: View {
 
     // MARK: - Lift stack
 
-    private var activeLift: DraftLift? {
-        draft.activeLiftIndex.map { draft.lifts[$0] }
-    }
-
     private var liftStack: some View {
         ForEach(Array(draft.lifts.enumerated()), id: \.element.id) { index, lift in
             if index == draft.activeLiftIndex {
@@ -185,7 +183,10 @@ struct WorkoutView: View {
                     name: lift.name,
                     detail: collapsedDetail(lift),
                     state: collapsedState(lift),
-                    onTap: lift.skipped ? { draft.unskip(exercise(lift)) } : nil
+                    onTap: {
+                        if lift.skipped { draft.unskip(exercise(lift)) }
+                        draft.select(exercise(lift))
+                    }
                 )
             }
         }
@@ -211,6 +212,10 @@ struct WorkoutView: View {
         if lift.skipped { return "Skipped" }
         let weight = WeightFormat.string(lift.weightLb, unit)
         guard lift.isComplete else {
+            // A parked half-done lift says where you left off.
+            if lift.loggedCount > 0 {
+                return "\(lift.loggedCount) of \(lift.reps.count) · \(weight)"
+            }
             return "\(lift.reps.count)×\(lift.targetReps) · \(weight)"
         }
         if lift.isClean { return "\(lift.reps.count)×\(lift.targetReps) · \(weight)" }
