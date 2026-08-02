@@ -8,9 +8,7 @@ import Foundation
 /// overwriting it.
 enum RestIntentRunner {
     static func apply(_ mutate: (inout DraftSnapshot) -> Void) async {
-        guard var snapshot = DraftStore.load() else { return }
-        mutate(&snapshot)
-        DraftStore.save(snapshot)
+        guard let snapshot = DraftStore.mutate({ mutate(&$0) }) else { return }
         await RestActivity.sync(snapshot)
         await MainActor.run {
             NotificationCenter.default.post(name: DraftStore.changedNotification, object: nil)

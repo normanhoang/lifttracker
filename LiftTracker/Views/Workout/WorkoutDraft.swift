@@ -7,8 +7,10 @@ import Combine
 @MainActor
 final class WorkoutDraft: ObservableObject {
     @Published private(set) var snapshot: DraftSnapshot
+    private let defaults: UserDefaults
 
-    init() {
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
         snapshot = DraftSnapshot(typeRaw: WorkoutType.a.rawValue,
                                  title: WorkoutType.a.title,
                                  lifts: [])
@@ -67,7 +69,7 @@ final class WorkoutDraft: ObservableObject {
 
     var bodyWeight: Double? {
         get { snapshot.bodyWeightLb }
-        set { snapshot.bodyWeightLb = newValue; persist() }
+        set { mutate { $0.bodyWeightLb = newValue } }
     }
 
     func states(_ ex: Exercise) -> [Int?] { snapshot.lift(ex.rawValue)?.reps ?? [] }
@@ -79,14 +81,14 @@ final class WorkoutDraft: ObservableObject {
     // MARK: - Mutating
 
     func setWeight(_ ex: Exercise, _ lb: Double) {
-        snapshot.setWeight(exerciseID: ex.rawValue, lb: lb)
-        persist()
+        mutate { $0.setWeight(exerciseID: ex.rawValue, lb: lb) }
     }
 
     func setRest(_ ex: Exercise, _ seconds: Int) {
-        guard let i = snapshot.lifts.firstIndex(where: { $0.exerciseID == ex.rawValue }) else { return }
-        snapshot.lifts[i].restSeconds = seconds
-        persist()
+        mutate { snapshot in
+            guard let i = snapshot.lifts.firstIndex(where: { $0.exerciseID == ex.rawValue }) else { return }
+            snapshot.lifts[i].restSeconds = seconds
+        }
     }
 
     /// Tap: log the target rep count. Returns true when rest should start.
@@ -98,53 +100,62 @@ final class WorkoutDraft: ObservableObject {
     /// Hold / picker: log an explicit rep count, or nil to clear the set.
     @discardableResult
     func log(_ ex: Exercise, _ index: Int, reps: Int?) -> Bool {
-        let started = snapshot.log(exerciseID: ex.rawValue, setIndex: index, reps: reps)
-        persist()
+        var started = false
+        mutate { started = $0.log(exerciseID: ex.rawValue, setIndex: index, reps: reps) }
         return started
     }
 
     func undoLastSet() {
-        snapshot.undoLastSet()
-        persist()
+        mutate { $0.undoLastSet() }
     }
 
     func skip(_ ex: Exercise) {
-        snapshot.skip(exerciseID: ex.rawValue)
-        persist()
+        mutate { $0.skip(exerciseID: ex.rawValue) }
     }
 
     func unskip(_ ex: Exercise) {
-        snapshot.unskip(exerciseID: ex.rawValue)
-        persist()
+        mutate { $0.unskip(exerciseID: ex.rawValue) }
     }
 
     func select(_ ex: Exercise) {
-        snapshot.select(exerciseID: ex.rawValue)
-        persist()
+        mutate { $0.select(exerciseID: ex.rawValue) }
     }
 
     func skipUntouchedLifts() {
-        snapshot.skipUntouchedLifts()
-        persist()
+        mutate { $0.skipUntouchedLifts() }
     }
 
     // MARK: - Rest
 
     func addRest(_ seconds: Int) {
-        snapshot.addRest(seconds)
-        persist()
+        mutate { $0.addRest(seconds) }
     }
 
     func skipRest() {
-        snapshot.clearRest()
-        persist()
+        mutate { $0.clearRest() }
     }
 
     // MARK: - Persistence
 
-    func persist() { DraftStore.save(snapshot) }
+    func persist() {
+        if let saved = DraftStore.save(snapshot, to: defaults) {
+            snapshot = saved
+        }
+    }
 
-    func clearPersisted() { DraftStore.clear() }
+    private func mutate(_ body: (inout DraftSnapshot) -> Void) {
+        if let updated = DraftStore.mutate(to: defaults, body) {
+            snapshot = updated
+        } else {
+            // No decodable stored draft (cleared out-of-band, schema change, or
+            // a UI-test argument domain shadowing the key): mutate the on-screen
+            // snapshot and re-seed the store from it instead of dropping the tap.
+            body(&snapshot)
+            persist()
+        }
+    }
+
+    func clearPersisted() { DraftStore.clear(from: defaults) }
 
     /// Adopt a snapshot mutated elsewhere — a Live Activity button, or a resume
     /// on launch.
@@ -152,7 +163,7 @@ final class WorkoutDraft: ObservableObject {
 
     /// Re-read the store after an App Intent mutated it.
     func reloadFromStore() {
-        guard let stored = DraftStore.load(), stored.typeRaw == snapshot.typeRaw else { return }
+        guard let stored = DraftStore.load(from: defaults), stored.typeRaw == snapshot.typeRaw else { return }
         snapshot = stored
     }
 

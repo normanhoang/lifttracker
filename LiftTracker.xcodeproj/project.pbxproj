@@ -63,6 +63,7 @@
 		BAA494794A796FBCE32BB603 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2D97485476977181444E0CC /* Assets.xcassets */; };
 		BD2D85DC37185403F69FE2B8 /* WeightFormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82300664CEC6D744276D36DD /* WeightFormatTests.swift */; };
 		BE1BEB444E4DF4CA9FFFD61F /* DraftSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85D00273C73526E363DC07C /* DraftSnapshotTests.swift */; };
+		BF379AEF3D24DE6986A8EF77 /* ReliabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE399C82472C709A30783FA /* ReliabilityTests.swift */; };
 		C6C17ECC67B7156A3DEB4447 /* SetTileGestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899DDD81241C42FA79ADA0B0 /* SetTileGestureTests.swift */; };
 		C732BE796FCEEF39BCB79194 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44F51B228006B99F98F02F5 /* WorkoutView.swift */; };
 		CCDA3441D5E01FDA40EA9644 /* SessionDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F789B728A011DDD9F41DE16E /* SessionDetailSheet.swift */; };
@@ -179,6 +180,7 @@
 		DBEA096CAE88FED3709E1BDB /* RestStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestStrip.swift; sourceTree = "<group>"; };
 		DEF8E4BA9B43DA5F53F96B54 /* RestTimerWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = RestTimerWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E96E4D77D32A975BF1FCAEBC /* RestIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestIntents.swift; sourceTree = "<group>"; };
+		EDE399C82472C709A30783FA /* ReliabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReliabilityTests.swift; sourceTree = "<group>"; };
 		F37321D9956A96E6996904B3 /* WeekStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStrip.swift; sourceTree = "<group>"; };
 		F789B728A011DDD9F41DE16E /* SessionDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -219,6 +221,7 @@
 				7BC8FD305287D9CB27833519 /* PlateMathTests.swift */,
 				8BBFC6C10323913F7A022F2B /* ProgressionCopyTests.swift */,
 				98C94B14B37839824C5EE886 /* ProgressionTests.swift */,
+				EDE399C82472C709A30783FA /* ReliabilityTests.swift */,
 				036B59B75170059CB3DF02B3 /* RestTimerSupportTests.swift */,
 				82300664CEC6D744276D36DD /* WeightFormatTests.swift */,
 				0CB749F7A658B8DCF2B9626D /* WorkoutDraftTests.swift */,
@@ -593,6 +596,7 @@
 				62550F92918FD8B0ACB15C47 /* PlateMathTests.swift in Sources */,
 				F3555D80D07B1F16B74C6799 /* ProgressionCopyTests.swift in Sources */,
 				97C05FA504F0F1D4511F945F /* ProgressionTests.swift in Sources */,
+				BF379AEF3D24DE6986A8EF77 /* ReliabilityTests.swift in Sources */,
 				39FB2255F27288C8E9EF56AD /* RestTimerSupportTests.swift in Sources */,
 				BD2D85DC37185403F69FE2B8 /* WeightFormatTests.swift in Sources */,
 				458ED4BF81E1836758CACAB1 /* WorkoutDraftTests.swift in Sources */,
@@ -673,7 +677,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = DZRPJF9JB6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -761,7 +765,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DZRPJF9JB6;
 				ENABLE_NS_ASSERTIONS = NO;

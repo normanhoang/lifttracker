@@ -19,6 +19,7 @@ struct WorkoutView: View {
     @State private var resumable: DraftSnapshot?
     @State private var completed: CompletedSummary?
     @State private var finishUndo: FinishUndo?
+    @State private var saveFailed = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -61,6 +62,11 @@ struct WorkoutView: View {
             if let r = resumable {
                 Text("\(r.title) from earlier today has \(r.loggedSetCount) logged sets.")
             }
+        }
+        .alert("Couldn't save workout", isPresented: $saveFailed) {
+            Button("OK") { }
+        } message: {
+            Text("Your sets are still logged. Try finishing again.")
         }
         .overlay(alignment: .bottom) {
             if let undo = finishUndo {
@@ -448,6 +454,7 @@ struct WorkoutView: View {
         let now = Date()
         let duration = now.timeIntervalSince(draft.startedAt ?? now)
         let session = draft.buildSession(date: now, duration: duration)
+        let previousBodyWeight = lastBodyWeight
 
         let number = ((try? context.fetchCount(FetchDescriptor<WorkoutSession>())) ?? 0) + 1
         let before = progressSnapshot()
@@ -472,10 +479,15 @@ struct WorkoutView: View {
             lastBodyWeight = bw
             context.insert(BodyWeightEntry(date: now, weightLb: bw))
         }
-        do { try context.save() } catch {
+        do {
+            try context.save()
+        } catch {
             print("WorkoutView: failed to save session: \(error)")
+            context.rollback()
+            lastBodyWeight = previousBodyWeight
+            saveFailed = true
+            return
         }
-
         timer.stop()
         draft.clearPersisted()
         completed = CompletedSummary(number: number, session: session, changes: changes,
